@@ -1,0 +1,92 @@
+<div id="wrapper">
+  <a href="#sidebar" class="mobilemenu"><i class="fa fa-reorder"></i></a>
+  <div id="sidebar">
+    <div id="sidebar-wrapper">
+      <div id="sidebar-inner">
+        <!-- Profile/logo section-->
+        <div id="profile" class="clearfix">
+          <div class="portrate hidden-xs"></div>
+          <div class="title">
+            <h2>{{ author }}</h2>
+            <h3>Ph.D. {{ phd_student_status }}</h3>
+            <h3>{{ laboratory_name }}</h3>
+            <h3>{{ universitry_deparment }}</h3>
+            <h3>{{ university }}</h3>
+          </div>
+        </div>
+        <!-- /Profile/logo section-->
+
+        <!-- Main navigation-->
+        <div id="main-nav" style="padding-bottom: 33px">
+          <ul id="navigation">
+            <li class="currentmenu">
+              <a href="{{ base_path }}/index.html">
+                <i class="fa fa-user"></i>
+                <div class="text">About Me</div>
+              </a>
+            </li>
+
+            <li>
+              <a href="{{ base_path }}/research.html">
+                <i class="fa fa-book"></i>
+                <div class="text">Research</div>
+              </a>
+            </li>
+
+            <li>
+              <a href="{{ base_path }}/publications.html">
+                <i class="fa fa-edit"></i>
+                <div class="text">Publications</div>
+              </a>
+            </li>
+
+            <li>
+              <a href="{{ base_path }}/experience.html">
+                <i class="fa fa-clock-o"></i>
+                <div class="text">Experience</div>
+              </a>
+            </li>
+
+            <li class="external">
+              <a href="{{ base_path }}/docs/{{ cv_file_name }}">
+                <i class="fa fa-download"></i>
+                <div class="text">Download CV</div>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- /Main navigation-->
+        <!-- Sidebar footer -->
+        <div id="sidebar-footer">
+          <div class="social-icons">
+            <ul>
+              <li>
+                <a href="https://twitter.com/{{ twitter_username }}"
+                  ><i class="fab fa-twitter"></i
+                ></a>
+              </li>
+              <li>
+                <a href="https://github.com/{{ github_username }}"
+                  ><i class="fab fa-github"></i
+                ></a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/in/{{ linkedin_user_id }}"
+                  ><i class="fab fa-linkedin"></i
+                ></a>
+              </li>
+              <li>
+                <a
+                  href="https://scholar.google.com/citations?user={{ google_scholar_user_id }}"
+                  ><i class="fa fa-google"></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+          <!--<div id="copyright">Copyright text here</div>-->
+        </div>
+        <!-- /Sidebar footer -->
+      </div>
+    </div>
+  </div>
+</div>
