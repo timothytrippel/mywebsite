@@ -1,0 +1,105 @@
+<div id="main">
+  <div id="biography" class="page home" data-pos="home">
+    <div class="pageheader">
+      <div class="headercontent">
+        <div class="section-container">
+          <div class="row">
+            <!--empty column of whitespace-->
+            <div class="col-sm-2 visible-sm"></div>
+
+            <!--photo/contact info-->
+            <div class="col-sm-8 col-md-4">
+              <div class="biothumb">
+                <!--photo-->
+                <figure>
+                  <img
+                    alt="{{ author }} - {{ subtitle }}"
+                    src="{{ base_path }}/images/{{ author_photo }}"
+                    class="img-responsive"
+                  />
+                </figure>
+
+                <!--Contact Info.-->
+                <h4>Office</h4>
+                <p>
+                  <br />
+                  {{ address_line_1 }}
+                  <br />
+                  {{ address_line_2 }}
+                  <br />
+                  {{ address_line_3 }}
+                </p>
+                <h4>Email</h4>
+                <p>
+                  <strong>
+                    &nbsp;&nbsp; <i class="fa fa-envelope"></i>&nbsp;</strong
+                  >
+                  <span>
+                    <script language="JavaScript">
+                      var username = {{ email_username }};
+                      var hostname = {{ email_hostname }};
+                      var linktext = username + "@" + hostname;
+                      document.write(
+                        "<a href='" +
+                          "mail" +
+                          "to:" +
+                          username +
+                          "@" +
+                          hostname +
+                          "'>" +
+                          linktext +
+                          "</a>"
+                      );
+                    </script>
+                  </span>
+                </p>
+              </div>
+            </div>
+
+            <!--empty column of whitespace-->
+            <div class="clearfix visible-sm visible-xs"></div>
+
+            <!--bio, education, and research interests-->
+            <div class="col-sm-12 col-md-7">
+              <h3 class="title">{{ author }}</h3>
+              <p>{{ bio }}</p>
+              <h4>Education</h4>
+              <ul>
+                <li>
+                  <strong>Ph.D. in {{ university_department }}</strong>, {{
+                  university }}, {{ expected_graduation_month }} {{
+                  expected_graduation_year }} (expected).
+                </li>
+                <li>
+                  <strong>M.S.E. in Computer Science & Engineering</strong>,
+                  University of Michigan, December 2016.
+                </li>
+                <li>
+                  <strong>B.S in Computer Engineering</strong>, Purdue
+                  University, May 2015.
+                </li>
+              </ul>
+              <h4>Research Interests</h4>
+              <p>{{ interests }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="section-container"></div>
+      </div>
+    </div>
+    <div class="section color-1">
+      <div class="section-container">
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+            <div class="title text-center">
+              <h1>Latest News</h1>
+            </div>
+            <ul class="ul-dates">
+              {{ news }}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

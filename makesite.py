@@ -30,6 +30,7 @@
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """Make static website/blog with Python."""
 
+import calendar
 import datetime
 import glob
 import json
@@ -86,10 +87,13 @@ def read_content(filename):
 
     # Read metadata and save it in a dictionary.
     date_slug = os.path.basename(filename).split('.')[0]
-    match = re.search(r'^(?:(\d\d\d\d-\d\d-\d\d)-)?(.+)$', date_slug)
+    match = re.search(r'^(?:((\d\d\d\d)-(\d\d)-(\d\d))-)?(.+)$', date_slug)
     content = {
         'date': match.group(1) or '1970-01-01',
-        'slug': match.group(2),
+        'date_year': int(match.group(2) or '1970'),
+        'date_month': calendar.month_abbr[int(match.group(3) or '01')],
+        'date_day': int(match.group(4) or '01'),
+        'slug': match.group(5),
     }
 
     # Read headers.
@@ -110,10 +114,10 @@ def read_content(filename):
         except ImportError as e:
             log('WARNING: Cannot render Markdown in {}: {}', filename, str(e))
 
-    # Update the dictionary with content and RFC 2822 date.
+    # # Update the dictionary with content and RFC 2822 date.
     content.update({
         'content': text,
-        'rfc_2822_date': rfc_2822_format(content['date'])
+        # 'rfc_2822_date': rfc_2822_format(content['date'])
     })
 
     return content
@@ -153,6 +157,43 @@ def make_pages(src, dst, layout, **params):
     return sorted(items, key=lambda x: x['date'], reverse=True)
 
 
+def make_homepage(src, dst_path, homepage_layout, news_item_layout, **params):
+    """Generate homepage from content."""
+    # Create deepcopy of params
+    page_params = dict(params)
+
+    # Render homepage header with bio and interests
+    news_src = None
+    for src_path in glob.glob(src):
+        # if we encounter news/ sub-directory, save the path
+        if os.path.isdir(src_path) and os.path.basename(src_path) == "news":
+            news_src = os.path.join(src_path, "*.md")
+            continue
+        content = read_content(src_path)
+        page_params[content['slug']] = content['content']
+        log('Rendering {} => {} ...', src_path, dst_path)
+
+    # Extract news items
+    news_content = []
+    for src_path in glob.glob(news_src):
+        content = read_content(src_path)
+        news_content.append(content)
+    news_content.sort(key=lambda x: x['date'], reverse=True)
+
+    # Render news item HTML
+    news_items = []
+    for content in news_content:
+        page_params.update(content)
+        log('Rendering {} => {} ...', src_path, dst_path)
+        news_item = render(news_item_layout, **page_params)
+        news_items.append(news_item)
+    page_params['news'] = ''.join(news_items)
+
+    # Render homepage and write to file
+    output = render(homepage_layout, **page_params)
+    fwrite(dst_path, output)
+
+
 def make_list(posts, dst, list_layout, item_layout, **params):
     """Generate list page for a blog."""
     items = []
@@ -184,15 +225,32 @@ def main():
         'site_url': 'http://localhost:8000',
         'current_year': datetime.datetime.now().year,
 
+        # Student Info
+        'phd_student_status': 'Candidate',
+        'laboratory_name': 'RTCL Laboratory',
+        'university_department': 'Computer Science & Engineering',
+        'university': 'University of Michigan',
+
+        # Social Media
+        'twitter_username': 'TimothyTrippel',
+        'github_username': 'timothytrippel',
+        'linkedin_user_id': 'timothy-trippel-98a95657',
+        'google_scholar_user_id': 'PZOHIxAAAAAJ',
+
+        # CV
+        'cv_file_name': 'timothy_trippel_cv.pdf',
+
         # Hompage (index.html)
         'author_photo': 'timothytrippel.jpg',
-
-        # Contact info. (contact.html)
+        # Contact Info.
         'address_line_1': '4944 Bob & Betty Beyster Building',
         'address_line_2': '2260 Hayward St.',
         'address_line_3': 'Ann Arbor, MI 48109',
         'email_username': 'trippel',
         'email_hostname': 'umich.edu',
+        # Education Info.
+        'expected_graduation_month': 'May',
+        'expected_graduation_year': 2021,
     }
 
     # If params.json exists, load it.
@@ -202,68 +260,29 @@ def main():
     # Load layouts.
     page_layout = fread('layout/page.html')
     nav_layout = fread('layout/nav.html')
+    homepage_layout = fread('layout/homepage.html')
+    news_item_layout = fread('layout/news_item.html')
+
     # list_layout = fread('layout/list.html')
     # item_layout = fread('layout/item.html')
     # feed_xml = fread('layout/feed.xml')
     # item_xml = fread('layout/item.xml')
 
     # Combine layouts to form final layouts.
-    page_layout = render(page_layout, content=nav_layout)
-    # list_layout = render(page_layout, content=list_layout)
+    page_layout = render(page_layout, navbar=nav_layout)
+    homepage_layout = render(page_layout, content=homepage_layout)
 
     # Create site pages.
-    make_pages('content/_index.html', '_site/index.html', page_layout,
-               **params)
-    # make_pages('content/[!_]*.html', '_site/{{ slug }}/index.html',
-    # page_layout, **params)
-
-    # # Create blogs.
-    # blog_posts = make_pages('content/blog/*.md',
-    # '_site/blog/{{ slug }}/index.html',
-    # post_layout,
-    # blog='blog',
-    # **params)
-    # news_posts = make_pages('content/news/*.html',
-    # '_site/news/{{ slug }}/index.html',
-    # post_layout,
-    # blog='news',
-    # **params)
-
-    # # Create blog list pages.
-    # make_list(blog_posts,
-    # '_site/blog/index.html',
-    # list_layout,
-    # item_layout,
-    # blog='blog',
-    # title='Blog',
-    # **params)
-    # make_list(news_posts,
-    # '_site/news/index.html',
-    # list_layout,
-    # item_layout,
-    # blog='news',
-    # title='News',
-    # **params)
-
-    # # Create RSS feeds.
-    # make_list(blog_posts,
-    # '_site/blog/rss.xml',
-    # feed_xml,
-    # item_xml,
-    # blog='blog',
-    # title='Blog',
-    # **params)
-    # make_list(news_posts,
-    # '_site/news/rss.xml',
-    # feed_xml,
-    # item_xml,
-    # blog='news',
-    # title='News',
-    # **params)
+    make_homepage('content/homepage/*',
+                  '_site/index.html',
+                  homepage_layout,
+                  news_item_layout,
+                  render='yes',
+                  **params)
 
 
 # Test parameter to be set temporarily by unit tests.
-_test = None
+# _test = None
 
 if __name__ == '__main__':
     main()

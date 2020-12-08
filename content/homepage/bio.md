@@ -1,0 +1,1 @@
+I am a Ph.D. candidate in Computer Science & Engineering at the University of Michigan, where I am advised by Professor <a href="http://web.eecs.umich.edu/~kgshin/">Kang G. Shin</a>. I also work with Professor <a href="http://www.impedimenttoprogress.com/">Matthew Hicks</a> from Virginia Tech.
