@@ -28,7 +28,7 @@
 # CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-"""Make static website/blog with Python."""
+"""Make static personal website with Python."""
 
 import calendar
 import datetime
@@ -194,21 +194,46 @@ def make_homepage(src, dst_path, homepage_layout, news_item_layout, **params):
     fwrite(dst_path, output)
 
 
-def make_list(posts, dst, list_layout, item_layout, **params):
-    """Generate list page for a blog."""
-    items = []
-    for post in posts:
-        item_params = dict(params, **post)
-        item_params['summary'] = truncate(post['content'])
-        item = render(item_layout, **item_params)
-        items.append(item)
+# def make_publications(src, dst_path, pubs_layout, pub_item_layout, **params):
+# """Generate publications page from content."""
+# # Create deepcopy of params
+# page_params = dict(params)
 
-    params['content'] = ''.join(items)
-    dst_path = render(dst, **params)
-    output = render(list_layout, **params)
+# # Extract publication items
+# pub_content = []
+# for src_path in glob.glob(os.path.join(src, "*.md")):
+# content = read_content(src_path)
+# pub_content.append(content)
+# pub_content.sort(key=lambda x: x['date'], reverse=True)
 
-    log('Rendering list => {} ...', dst_path)
-    fwrite(dst_path, output)
+# # Render news item HTML
+# pub_items = []
+# for content in pub_content:
+# page_params.update(content)
+# log('Rendering {} => {} ...', src_path, dst_path)
+# pub_item = render(pub_item_layout, **page_params)
+# pub_items.append(pub_item)
+# page_params['pubs'] = ''.join(pub_items)
+
+# # Render publications page and write to file
+# output = render(pubs_layout, **page_params)
+# fwrite(dst_path, output)
+
+# def make_list(posts, dst, list_layout, item_layout, **params):
+# """Generate list page for a blog."""
+# items = []
+# for post in posts:
+# item_params = dict(params, **post)
+# item_params['summary'] = truncate(post['content'])
+# item = render(item_layout, **item_params)
+# items.append(item)
+
+# params['content'] = ''.join(items)
+# dst_path = render(dst, **params)
+# output = render(list_layout, **params)
+
+# log('Rendering list => {} ...', dst_path)
+# fwrite(dst_path, output)
 
 
 def main():
@@ -262,6 +287,7 @@ def main():
     nav_layout = fread('layout/nav.html')
     homepage_layout = fread('layout/homepage.html')
     news_item_layout = fread('layout/news_item.html')
+    # publications_layout = fread('layout/publications.html')
 
     # list_layout = fread('layout/list.html')
     # item_layout = fread('layout/item.html')
@@ -271,6 +297,7 @@ def main():
     # Combine layouts to form final layouts.
     page_layout = render(page_layout, navbar=nav_layout)
     homepage_layout = render(page_layout, content=homepage_layout)
+    # publications_layout = render(page_layout, content=publications_layout)
 
     # Create site pages.
     make_homepage('content/homepage/*',
@@ -282,7 +309,7 @@ def main():
 
 
 # Test parameter to be set temporarily by unit tests.
-# _test = None
+_test = None
 
 if __name__ == '__main__':
     main()
