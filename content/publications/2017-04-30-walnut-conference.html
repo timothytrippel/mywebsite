@@ -1,0 +1,105 @@
+<!--type: conference-->
+<!--acceptance_rate: 19.6%-->
+<div class="item mix {{ type }}" data-year="{{ date_year }}">
+  <div class="pubmain">
+    <div class="pubassets">
+      <a href="#" class="pubcollapse">
+        <i class="fa fa-expand"></i>
+      </a>
+      <a
+        href="https://www.youtube.com/watch?v=Dfc3jZkcnLU"
+        class="tooltips"
+        title="Summary Video"
+        target="_blank"
+      >
+        <i class="fa fa-file-video-o"></i>
+      </a>
+      <a
+        href="https://www.youtube.com/watch?v=C8aZ5nBmKH0"
+        class="tooltips"
+        title="Phone Demo Video"
+        target="_blank"
+      >
+        <i class="fa fa-file-video-o"></i>
+      </a>
+      <a
+        href="https://www.youtube.com/watch?v=aedOf3cZnEI"
+        class="tooltips"
+        title="Fitbit Demo Video"
+        target="_blank"
+      >
+        <i class="fa fa-file-video-o"></i>
+      </a>
+      <a
+        href="https://spqr.eecs.umich.edu/walnut/"
+        class="tooltips"
+        title="Project Website"
+        target="_blank"
+      >
+        <i class="fa fa-external-link"></i>
+      </a>
+      <a
+        href="https://spqr.eecs.umich.edu/papers/trippel-IEEE-oaklawn-walnut-2017.pdf"
+        class="tooltips"
+        title="Download"
+        target="_blank"
+      >
+        <i class="fa fa-cloud-download"></i>
+      </a>
+    </div>
+    <h4 class="pubtitle">
+      WALNUT: Waging Doubt on the Integrity of MEMS Accelerometers with Acoustic
+      Injection Attacks
+    </h4>
+    <div class="pubauthor">
+      <strong>Timothy Trippel</strong>, Ofir Weisse, Wenyuan Xu, Peter Honeyman,
+      and Kevin Fu
+    </div>
+    <div class="pubcite">
+      <span class="label label-success">{{ type }}</span>
+      The 2nd IEEE European Symposium on Security & Privacy
+      <strong>(EuroS&P)</strong>, Paris, France, April {{ date_year }}.
+      (Acceptance Rate: {{ acceptance_rate }})
+    </div>
+  </div>
+  <div class="pubdetails">
+    <h4>Abstract</h4>
+    <p>
+      Cyber-physical systems depend on sensors to make automated decisions.
+      Resonant acoustic injection attacks are already known to cause
+      malfunctions by disabling MEMS-based gyroscopes. However, an open question
+      remains on how to move beyond denial of service attacks to achieve full
+      adversarial control of sensor outputs. Our work investigates how analog
+      acoustic injection attacks can damage the digital integrity of a popular
+      type of sensor: the capacitive MEMS accelerometer. Spoofing such sensors
+      with intentional acoustic interference enables an out-of-spec pathway for
+      attackers to deliver chosen digital values to microprocessors and embedded
+      systems that blindly trust the unvalidated integrity of sensor outputs.
+      Our contributions include (1) modeling the physics of malicious acoustic
+      interference on MEMS accelerometers, (2) discovering the circuit-level
+      security flaws that cause the vulnerabilities by measuring acoustic
+      injection attacks on MEMS accelerometers as well as systems that employ on
+      these sensors, and (3) two software-only defenses that mitigate many of
+      the risks to the integrity of MEMS accelerometer outputs.
+      <br />
+      <br />
+      We characterize two classes of acoustic injection attacks with increasing
+      levels of adversarial control: output biasing and output control. We test
+      these attacks against 20 models of capacitive MEMS accelerometers from 5
+      different manufacturers. Our experiments find that 75% are vulnerable to
+      output biasing, and 65% are vulnerable to output control. To illustrate
+      end-to-end implications, we show how to inject fake steps into a Fitbit
+      with a $5 speaker. In our self-stimulating attack, we play a malicious
+      music file from a smartphone’s speaker to control the on-board MEMS
+      accelerometer trusted by a local app to pilot a toy RC car. In addition to
+      offering hardware design suggestions to eliminate the root causes of
+      insecure amplification and filtering, we introduce two lowcost software
+      defenses that mitigate output biasing attacks: randomized sampling and
+      180&deg; out-of-phase sampling. These software-only approaches mitigate
+      attacks by exploiting the periodic and predictable nature of the malicious
+      acoustic interference signal. Our results call into question the wisdom of
+      allowing microprocessors and embedded systems to blindly trust that
+      hardware abstractions alone will ensure the integrity of sensor outputs.
+    </p>
+  </div>
+</div>

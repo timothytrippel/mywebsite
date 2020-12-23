@@ -1,0 +1,90 @@
+<div id="main">
+  <div id="publications" class="page">
+    <div class="page-container">
+      <div class="pageheader">
+        <div class="headercontent">
+          <div class="section-container">
+            <h2 class="title">Publications</h2>
+            <div class="row">
+              <div class="col-md-12">
+                <p>
+                  Below is a comprehensive list of my publications and patents.
+                  <br />
+                  You can also check out my Google Scholar
+                  <a
+                    href="https://scholar.google.com/citations?user={{ google_scholar_user_id }}"
+                    target="_blank"
+                    >page</a
+                  >.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pagecontents">
+        <div class="section color-1" id="filters">
+          <div class="section-container">
+            <div class="row">
+              <div class="col-md-3">
+                <h3>Filter by type:</h3>
+              </div>
+              <div class="col-md-6">
+                <select id="cd-dropdown" name="cd-dropdown" class="cd-select">
+                  <option class="filter" value="all" selected>All</option>
+                  <!-- <option class="filter" value="dissertation">Dissertation</option> -->
+                  <option class="filter" value="conference">
+                    Conference Papers
+                  </option>
+                  <option class="filter" value="patent">Patents</option>
+                  <option class="filter" value="preprint">Preprints</option>
+                </select>
+              </div>
+
+              <div class="col-md-3" id="sort">
+                <span>Sort by year:</span>
+                <div class="btn-group pull-right">
+                  <button
+                    type="button"
+                    data-sort="data-year"
+                    data-order="desc"
+                    class="sort btn btn-default"
+                  >
+                    <i class="fa fa-sort-numeric-asc"></i>
+                  </button>
+                  <button
+                    type="button"
+                    data-sort="data-year"
+                    data-order="asc"
+                    class="sort btn btn-default"
+                  >
+                    <i class="fa fa-sort-numeric-desc"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="section color-2" id="pub-grid">
+          <div class="section-container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="pitems">{{ content }}</div>
+                <h4>Disclaimer:</h4>
+                <small>
+                  This material is presented to ensure timely dissemination of
+                  scholarly and technical work. Copyright and all rights therein
+                  are retained by authors or by other copyright holders. All
+                  persons copying this information are expected to adhere to the
+                  terms and constraints invoked by each author's copyright. In
+                  most cases, these works may not be reposted without the
+                  explicit permission of the copyright holder.
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -5,7 +5,14 @@
       <div id="sidebar-inner">
         <!-- Profile/logo section-->
         <div id="profile" class="clearfix">
-          <div class="portrate hidden-xs"></div>
+          <div class="portrate hidden-xs">
+            <a href="https://timothytrippel.com">
+              <img
+                src="{{ base_path }}/images/timothytrippel_square.jpg"
+                alt="Timothy Trippel"
+              />
+            </a>
+          </div>
           <div class="title">
             <h2>{{ author }}</h2>
             <h3>Ph.D. {{ phd_student_status }}</h3>
@@ -84,7 +91,7 @@
               </li>
             </ul>
           </div>
-          <!--<div id="copyright">Copyright text here</div>-->
+          <div id="copyright">&#169; {{ current_year }} Timothy Trippel</div>
         </div>
         <!-- /Sidebar footer -->
       </div>

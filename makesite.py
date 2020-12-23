@@ -185,7 +185,7 @@ def make_pages(src, dst, layout, **params):
     return sorted(items, key=lambda x: x['date'], reverse=True)
 
 
-def make_homepage(src, dst_path, homepage_layout, news_item_layout, **params):
+def make_index(src, dst_path, homepage_layout, news_item_layout, **params):
     """Generate homepage from content."""
     # Create deepcopy of params
     page_params = dict(params)
@@ -222,30 +222,30 @@ def make_homepage(src, dst_path, homepage_layout, news_item_layout, **params):
     fwrite(dst_path, output)
 
 
-# def make_publications(src, dst_path, pubs_layout, pub_item_layout, **params):
-# """Generate publications page from content."""
-# # Create deepcopy of params
-# page_params = dict(params)
+def make_publications(src, dst_path, publications_layout, **params):
+    """Generate publications page from content."""
+    pub_contents = []
 
-# # Extract publication items
-# pub_content = []
-# for src_path in glob.glob(os.path.join(src, "*.md")):
-# content = read_content(src_path)
-# pub_content.append(content)
-# pub_content.sort(key=lambda x: x['date'], reverse=True)
+    # Create deepcopy of params (to enable safe modification)
+    page_params = dict(params)
 
-# # Render news item HTML
-# pub_items = []
-# for content in pub_content:
-# page_params.update(content)
-# log('Rendering {} => {} ...', src_path, dst_path)
-# pub_item = render(pub_item_layout, **page_params)
-# pub_items.append(pub_item)
-# page_params['pubs'] = ''.join(pub_items)
+    # Extract publication items
+    pub_items = []
+    for pub_file in glob.glob(os.path.join(src, "*.html")):
+        pub_items.append(read_content(pub_file))
+    pub_items.sort(key=lambda x: x['date'], reverse=True)
 
-# # Render publications page and write to file
-# output = render(pubs_layout, **page_params)
-# fwrite(dst_path, output)
+    # Render publication items and combine into HTML string
+    for pub_item in pub_items:
+        page_params.update(pub_item)
+        rendered_content = render(page_params['content'], **page_params)
+        pub_contents.append(rendered_content)
+
+    # Write publications HTML to file
+    page_params['content'] = ''.join(pub_contents)
+    output = render(publications_layout, **page_params)
+    fwrite(dst_path, output)
+
 
 # def make_list(posts, dst, list_layout, item_layout, **params):
 # """Generate list page for a blog."""
@@ -293,6 +293,7 @@ def main():
         # CV
         'cv_file_name': 'timothy_trippel_cv.pdf',
 
+        # TODO(timothytrippel): move to header comments of hompage.html layout
         # Hompage (index.html)
         'author_photo': 'timothytrippel.jpg',
         # Contact Info.
@@ -313,9 +314,9 @@ def main():
     # Load layouts.
     page_layout = fread('layout/page.html')
     nav_layout = fread('layout/nav.html')
-    homepage_layout = fread('layout/homepage.html')
+    index_layout = fread('layout/index.html')
     news_item_layout = fread('layout/news_item.html')
-    # publications_layout = fread('layout/publications.html')
+    publications_layout = fread('layout/publications.html')
 
     # list_layout = fread('layout/list.html')
     # item_layout = fread('layout/item.html')
@@ -324,16 +325,18 @@ def main():
 
     # Combine layouts to form final layouts.
     page_layout = render(page_layout, navbar=nav_layout)
-    homepage_layout = render(page_layout, content=homepage_layout)
-    # publications_layout = render(page_layout, content=publications_layout)
+    index_layout = render(page_layout, content=index_layout)
+    publications_layout = render(page_layout, content=publications_layout)
 
     # Create site pages.
-    make_homepage('content/homepage/*',
-                  '_site/index.html',
-                  homepage_layout,
-                  news_item_layout,
-                  render='yes',
-                  **params)
+    make_index('content/homepage/*',
+               '_site/index.html',
+               index_layout,
+               news_item_layout,
+               render='yes',
+               **params)
+    make_publications('content/publications', '_site/publications.html',
+                      publications_layout, **params)
 
 
 # Test parameter to be set temporarily by unit tests.
