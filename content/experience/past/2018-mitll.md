@@ -1,0 +1,19 @@
+<!--start_month: May-->
+<!--start_year: 2018-->
+<!--end_month: Sept.-->
+<!--end_year: 2018-->
+<!--position: Graduate Research Intern-->
+<!--institution: MIT Lincoln Laboratory-->
+<!--location_city: Lexington-->
+<!--location_state: MA-->
+
+**Team**: [Cyber-Physical Systems](https://www.ll.mit.edu/r-d/cyber-security-and-information-sciences/cyber-physical-systems)
+&#151; **Supervisors**:
+[Kevin B. Bush](https://www.ll.mit.edu/biographies/kevin-b-bush) and
+[Matthew Hicks](http://www.impedimenttoprogress.com/)
+<br />
+**Description**: Developed two layout-level defenses&#151;
+[T-TER](https://arxiv.org/pdf/1906.08842.pdf) and
+[IC Portholes](https://patents.google.com/patent/US10839109B2)&#151;against
+stealthy fabrication-time attacks like the
+[A2 Trojan](https://ieeexplore.ieee.org/document/7546493).

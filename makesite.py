@@ -67,6 +67,8 @@ import re
 import shutil
 import sys
 
+import hjson
+
 
 def fread(filename):
     """Read file and close the file."""
@@ -108,6 +110,18 @@ def rfc_2822_format(date_str):
     return d.strftime('%a, %d %b %Y %H:%M:%S +0000')
 
 
+def markdown_2_html(filename, text):
+    """Convert markdown text string to an HTML text string."""
+    try:
+        if _test == 'ImportError':
+            raise ImportError('Error forced by test')
+        import commonmark
+        text = commonmark.commonmark(text)
+    except ImportError as e:
+        log('WARNING: Cannot render Markdown in {}: {}', filename, str(e))
+    return text
+
+
 def read_content(filename):
     """Read content and metadata from file into a dictionary."""
     # Read file content.
@@ -134,13 +148,7 @@ def read_content(filename):
 
     # Convert Markdown content to HTML.
     if filename.endswith(('.md', '.mkd', '.mkdn', '.mdown', '.markdown')):
-        try:
-            if _test == 'ImportError':
-                raise ImportError('Error forced by test')
-            import commonmark
-            text = commonmark.commonmark(text)
-        except ImportError as e:
-            log('WARNING: Cannot render Markdown in {}: {}', filename, str(e))
+        text = markdown_2_html(filename, text)
 
     # # Update the dictionary with content and RFC 2822 date.
     content.update({
@@ -247,6 +255,31 @@ def make_publications(src, dst_path, publications_layout, **params):
     fwrite(dst_path, output)
 
 
+def make_experience(src, dst_path, experience_layout, experience_item_layout,
+                    **params):
+    """Generate experience page from content."""
+    exp_contents = []
+
+    # Create deepcopy of params (to enable safe modification)
+    page_params = dict(params)
+
+    # Extract past experience items
+    exp_items = []
+    for exp_file in glob.glob(os.path.join(src, "past", "*.md")):
+        exp_items.append(read_content(exp_file))
+    exp_items.sort(key=lambda x: (x["end_year"], x["end_month"]), reverse=True)
+
+    # Render experience items and combine into HTML string
+    for exp_item in exp_items:
+        rendered_content = render(experience_item_layout, **exp_item)
+        exp_contents.append(rendered_content)
+
+    # Write experience HTML to file
+    page_params["content"] = "".join(exp_contents)
+    output = render(experience_layout, **page_params)
+    fwrite(dst_path, output)
+
+
 # def make_list(posts, dst, list_layout, item_layout, **params):
 # """Generate list page for a blog."""
 # items = []
@@ -317,19 +350,17 @@ def main():
     index_layout = fread('layout/index.html')
     news_item_layout = fread('layout/news_item.html')
     publications_layout = fread('layout/publications.html')
-
-    # list_layout = fread('layout/list.html')
-    # item_layout = fread('layout/item.html')
-    # feed_xml = fread('layout/feed.xml')
-    # item_xml = fread('layout/item.xml')
+    experience_layout = fread('layout/experience.html')
+    experience_item_layout = fread('layout/experience_item.html')
 
     # Combine layouts to form final layouts.
     page_layout = render(page_layout, navbar=nav_layout)
     index_layout = render(page_layout, content=index_layout)
     publications_layout = render(page_layout, content=publications_layout)
+    experience_layout = render(page_layout, content=experience_layout)
 
     # Create site pages.
-    make_index('content/homepage/*',
+    make_index('content/index/*',
                '_site/index.html',
                index_layout,
                news_item_layout,
@@ -337,6 +368,12 @@ def main():
                **params)
     make_publications('content/publications', '_site/publications.html',
                       publications_layout, **params)
+    make_experience('content/experience',
+                    '_site/experience.html',
+                    experience_layout,
+                    experience_item_layout,
+                    render='yes',
+                    **params)
 
 
 # Test parameter to be set temporarily by unit tests.
