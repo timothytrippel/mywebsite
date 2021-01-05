@@ -22,24 +22,12 @@
             <div class="col-md-10 col-md-offset-1">
               <!-- Current Positions -->
               <ul class="ul-dates">
-                <li>
-                  <div class="dates">
-                    <span>Present</span>
-                    <span>{{ start_month }} {{ start_year }}</span>
-                  </div>
-                  <div class="content">
-                    <h4>
-                      {{ position }} &#151; <strong>{{ institution }}</strong>
-                      &#151; {{ location_city }}, {{ location_state }}
-                    </h4>
-                    {{ description }}
-                  </div>
-                </li>
+                {{ current_jobs }}
               </ul>
 
               <!-- Past Positions -->
               <ul class="ul-dates-gray">
-                {{ content }}
+                {{ past_jobs }}
               </ul>
             </div>
           </div>

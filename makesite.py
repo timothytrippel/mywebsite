@@ -89,11 +89,6 @@ def log(msg, *args):
     sys.stderr.write(msg.format(*args) + '\n')
 
 
-def truncate(text, words=25):
-    """Remove tags and truncate text to the specified number of words."""
-    return ' '.join(re.sub('(?s)<.*?>', ' ', text).split()[:words])
-
-
 def read_headers(text):
     """Parse headers in text and yield (key, value, end-index) tuples."""
     for match in re.finditer(r'\s*<!--\s*(.+?)\s*:\s*(.+?)\s*-->\s*|.+', text):
@@ -166,144 +161,60 @@ def render(template, **params):
         template)
 
 
-def make_pages(src, dst, layout, **params):
-    """Generate pages from page content."""
+def make_list(src, item_layout, **params):
+    """Generate HTML list string from several (HTML/Markdown) content files."""
+    # Extract content from content files
     items = []
+    for content_file in glob.glob(src):
+        items.append(read_content(content_file))
 
-    for src_path in glob.glob(src):
-        content = read_content(src_path)
+    # Sort items by date
+    items.sort(key=lambda x: (x["date_year"], x["date_month"], x["date_day"]),
+               reverse=True)
 
-        page_params = dict(params, **content)
-
-        # Populate placeholders in content if content-rendering is enabled.
-        if page_params.get('render') == 'yes':
-            rendered_content = render(page_params['content'], **page_params)
-            page_params['content'] = rendered_content
-            content['content'] = rendered_content
-
-        items.append(content)
-
-        dst_path = render(dst, **page_params)
-        output = render(layout, **page_params)
-
-        log('Rendering {} => {} ...', src_path, dst_path)
-        fwrite(dst_path, output)
-
-    return sorted(items, key=lambda x: x['date'], reverse=True)
+    # Render items and build HTML string
+    html_strs = []
+    for item_params in items:
+        log("Rendering list item => {}-{} ...", item_params["date"],
+            item_params["slug"])
+        if item_layout is not None:
+            item_html_str = render(item_layout, **item_params)
+        elif params.get("render") is True:
+            item_params.update(params)
+            item_html_str = render(item_params["content"], **item_params)
+        else:
+            item_html_str = item_params["content"]
+        html_strs.append(item_html_str)
+    return "".join(html_strs)
 
 
-def make_index(src, dst_path, homepage_layout, news_item_layout, **params):
-    """Generate homepage from content."""
+def make_page(slug, layouts, **params):
+    """Generate website page from layout and content directory."""
     # Create deepcopy of params
     page_params = dict(params)
 
-    # Render homepage header with bio and interests
-    news_src = None
-    for src_path in glob.glob(src):
-        # if we encounter news/ sub-directory, save the path
-        if os.path.isdir(src_path) and os.path.basename(src_path) == "news":
-            news_src = os.path.join(src_path, "*.md")
-            continue
-        content = read_content(src_path)
-        page_params[content['slug']] = content['content']
-        log('Rendering {} => {} ...', src_path, dst_path)
+    # Create src and dst paths
+    content_glob = os.path.join("content", slug, "*")
+    dst_path = os.path.join(params["base_path"], slug + ".html")
 
-    # Extract news items
-    news_content = []
-    for src_path in glob.glob(news_src):
-        content = read_content(src_path)
-        news_content.append(content)
-    news_content.sort(key=lambda x: x["date"], reverse=True)
-
-    # Render news item HTML
-    news_items = []
-    for content in news_content:
-        page_params.update(content)
-        log('Rendering {} => {} ...', src_path, dst_path)
-        news_item = render(news_item_layout, **page_params)
-        news_items.append(news_item)
-    page_params['news'] = ''.join(news_items)
+    # Render page with content
+    if params.get("list_only") is True:
+        page_params["content"] = make_list(content_glob, None, **page_params)
+    else:
+        for src_path in glob.glob(content_glob):
+            # if we encounter a sub-directory, make a list from content files
+            if os.path.isdir(src_path):
+                param = os.path.basename(src_path)
+                page_params[param] = make_list(os.path.join(src_path, "*"),
+                                               layouts[param], **page_params)
+            else:
+                content = read_content(src_path)
+                page_params[content["slug"]] = content["content"]
 
     # Render homepage and write to file
-    output = render(homepage_layout, **page_params)
+    log('Rendering {} page => {}.html ...', slug, slug)
+    output = render(layouts[slug], **page_params)
     fwrite(dst_path, output)
-
-
-def make_publications(src, dst_path, publications_layout, **params):
-    """Generate publications page from content."""
-    pub_contents = []
-
-    # Create deepcopy of params (to enable safe modification)
-    page_params = dict(params)
-
-    # Extract publication items
-    pub_items = []
-    for pub_file in glob.glob(os.path.join(src, "*.html")):
-        pub_items.append(read_content(pub_file))
-    pub_items.sort(key=lambda x: x['date'], reverse=True)
-
-    # Render publication items and combine into HTML string
-    for pub_item in pub_items:
-        page_params.update(pub_item)
-        rendered_content = render(page_params['content'], **page_params)
-        pub_contents.append(rendered_content)
-
-    # Write publications HTML to file
-    page_params['content'] = ''.join(pub_contents)
-    output = render(publications_layout, **page_params)
-    fwrite(dst_path, output)
-
-
-def make_experience(src, dst_path, experience_layout, experience_item_layout,
-                    **params):
-    """Generate experience page from content."""
-    exp_contents = []
-
-    # Create deepcopy of params (to enable safe modification)
-    page_params = dict(params)
-
-    # Extract current job position
-    curr_job_item = read_content(os.path.join(src, "current.md"))
-    curr_job_item["description"] = curr_job_item.pop("content")
-    experience_layout = render(experience_layout, **curr_job_item)
-
-    # Extract past experience items
-    exp_items = []
-    for exp_file in glob.glob(os.path.join(src, "past", "*.md")):
-        exp_item = read_content(exp_file)
-        end_month_abbr = exp_item["end_month"][:3]
-        exp_item["end_month_num"] = datetime.datetime.strptime(
-            end_month_abbr, "%b")
-        exp_items.append(exp_item)
-    exp_items.sort(key=lambda x: (x["end_year"], x["end_month_num"]),
-                   reverse=True)
-
-    # Render experience items and combine into HTML string
-    for exp_item in exp_items:
-        rendered_content = render(experience_item_layout, **exp_item)
-        exp_contents.append(rendered_content)
-
-    # Write experience HTML to file
-    page_params["content"] = "".join(exp_contents)
-    output = render(experience_layout, **page_params)
-    fwrite(dst_path, output)
-
-
-# def make_list(posts, dst, list_layout, item_layout, **params):
-# """Generate list page for a blog."""
-# items = []
-# for post in posts:
-# item_params = dict(params, **post)
-# item_params['summary'] = truncate(post['content'])
-# item = render(item_layout, **item_params)
-# items.append(item)
-
-# params['content'] = ''.join(items)
-# dst_path = render(dst, **params)
-# output = render(list_layout, **params)
-
-# log('Rendering list => {} ...', dst_path)
-# fwrite(dst_path, output)
 
 
 def main():
@@ -357,40 +268,36 @@ def main():
         'curr_job_state': 'MI',
     }
 
-    # If params.json exists, load it.
+    # If params.json exists, load it
     if os.path.isfile('params.json'):
         params.update(json.loads(fread('params.json')))
 
-    # Load layouts.
-    page_layout = fread('layout/page.html')
-    nav_layout = fread('layout/nav.html')
-    index_layout = fread('layout/index.html')
-    news_item_layout = fread('layout/news_item.html')
-    publications_layout = fread('layout/publications.html')
-    experience_layout = fread('layout/experience.html')
-    experience_item_layout = fread('layout/experience_item.html')
+    # Load layouts
+    layouts = {}
+    # Base layouts
+    layouts["page"] = fread('layout/page.html')
+    layouts["nav"] = fread('layout/nav.html')
+    # Page layouts
+    layouts["index"] = fread('layout/index.html')
+    layouts["publications"] = fread('layout/publications.html')
+    layouts["experience"] = fread('layout/experience.html')
+    # List Layouts
+    layouts["news"] = fread('layout/news_item.html')
+    layouts["past_jobs"] = fread('layout/past_job_item.html')
+    layouts["current_jobs"] = fread('layout/current_job_item.html')
 
-    # Combine layouts to form final layouts.
-    page_layout = render(page_layout, navbar=nav_layout)
-    index_layout = render(page_layout, content=index_layout)
-    publications_layout = render(page_layout, content=publications_layout)
-    experience_layout = render(page_layout, content=experience_layout)
+    # Combine layouts to form final layouts
+    layouts["page"] = render(layouts["page"], nav=layouts["nav"])
+    layouts["index"] = render(layouts["page"], content=layouts["index"])
+    layouts["publications"] = render(layouts["page"],
+                                     content=layouts["publications"])
+    layouts["experience"] = render(layouts["page"],
+                                   content=layouts["experience"])
 
-    # Create site pages.
-    make_index('content/index/*',
-               '_site/index.html',
-               index_layout,
-               news_item_layout,
-               render='yes',
-               **params)
-    make_publications('content/publications', '_site/publications.html',
-                      publications_layout, **params)
-    make_experience('content/experience',
-                    '_site/experience.html',
-                    experience_layout,
-                    experience_item_layout,
-                    render='yes',
-                    **params)
+    # Create site pages
+    make_page("index", layouts, **params)
+    make_page("experience", layouts, **params)
+    make_page("publications", layouts, list_only=True, render=True, **params)
 
 
 # Test parameter to be set temporarily by unit tests.
