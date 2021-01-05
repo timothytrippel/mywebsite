@@ -3,7 +3,7 @@
     <div class="pageheader">
       <div class="headercontent">
         <div class="section-container">
-          <h2 class="title">Work Experience</h2>
+          <h2 class="title">Experience</h2>
           <div class="row">
             <div class="col-md-12">
               <p>
@@ -25,32 +25,14 @@
                 <li>
                   <div class="dates">
                     <span>Present</span>
-                    <span>Sept. 2015</span>
+                    <span>{{ start_month }} {{ start_year }}</span>
                   </div>
                   <div class="content">
                     <h4>
-                      Graduate Research Assistant at the
-                      <strong>University of Michigan</strong> &#8213; Ann Arbor,
-                      MI
+                      {{ position }} &#151; <strong>{{ institution }}</strong>
+                      &#151; {{ location_city }}, {{ location_state }}
                     </h4>
-                    <h5>
-                      <a
-                        href="https://kabru.eecs.umich.edu"
-                        class="tooltips"
-                        target="_blank"
-                      >
-                        Real-Time Computing Laboratory</a
-                      >
-                    </h5>
-
-                    <p>
-                      I take a red-team/blue-team approach to explore how
-                      autonomous cyber-physical systems can be attacked and
-                      defended through the foundational hardware they rely on.
-                      Specifically I research signal injection attacks on
-                      cyber-physical systems, and hardware Trojan
-                      attacks/defenses throughout the hardware design process.
-                    </p>
+                    {{ description }}
                   </div>
                 </li>
               </ul>

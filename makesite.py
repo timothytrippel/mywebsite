@@ -67,8 +67,6 @@ import re
 import shutil
 import sys
 
-import hjson
-
 
 def fread(filename):
     """Read file and close the file."""
@@ -150,9 +148,10 @@ def read_content(filename):
     if filename.endswith(('.md', '.mkd', '.mkdn', '.mdown', '.markdown')):
         text = markdown_2_html(filename, text)
 
-    # # Update the dictionary with content and RFC 2822 date.
+    # Update the dictionary with content and RFC 2822 date.
     content.update({
         'content': text,
+        # TODO(timothytrippel): uncomment this
         # 'rfc_2822_date': rfc_2822_format(content['date'])
     })
 
@@ -214,7 +213,7 @@ def make_index(src, dst_path, homepage_layout, news_item_layout, **params):
     for src_path in glob.glob(news_src):
         content = read_content(src_path)
         news_content.append(content)
-    news_content.sort(key=lambda x: x['date'], reverse=True)
+    news_content.sort(key=lambda x: x["date"], reverse=True)
 
     # Render news item HTML
     news_items = []
@@ -263,11 +262,21 @@ def make_experience(src, dst_path, experience_layout, experience_item_layout,
     # Create deepcopy of params (to enable safe modification)
     page_params = dict(params)
 
+    # Extract current job position
+    curr_job_item = read_content(os.path.join(src, "current.md"))
+    curr_job_item["description"] = curr_job_item.pop("content")
+    experience_layout = render(experience_layout, **curr_job_item)
+
     # Extract past experience items
     exp_items = []
     for exp_file in glob.glob(os.path.join(src, "past", "*.md")):
-        exp_items.append(read_content(exp_file))
-    exp_items.sort(key=lambda x: (x["end_year"], x["end_month"]), reverse=True)
+        exp_item = read_content(exp_file)
+        end_month_abbr = exp_item["end_month"][:3]
+        exp_item["end_month_num"] = datetime.datetime.strptime(
+            end_month_abbr, "%b")
+        exp_items.append(exp_item)
+    exp_items.sort(key=lambda x: (x["end_year"], x["end_month_num"]),
+                   reverse=True)
 
     # Render experience items and combine into HTML string
     for exp_item in exp_items:
@@ -338,6 +347,14 @@ def main():
         # Education Info.
         'expected_graduation_month': 'May',
         'expected_graduation_year': 2021,
+
+        # Experience (experience.html)
+        'curr_job_start_month': 'Sept.',
+        'curr_job_start_year': 2015,
+        'curr_job_title': 'Graduate Research Assistant',
+        'curr_employer': 'University of Michigan',
+        'curr_job_city': 'Ann Arbor',
+        'curr_job_state': 'MI',
     }
 
     # If params.json exists, load it.

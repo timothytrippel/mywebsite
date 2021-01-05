@@ -1,0 +1,13 @@
+<!--start_month: Sept.-->
+<!--start_year: 2015-->
+<!--position: Graduate Research Assistant-->
+<!--institution: University of Michigan-->
+<!--location_city: Ann Arbor-->
+<!--location_state: MI-->
+
+[RTCL Laboratory](https://rtcl.eecs.umich.edu/rtclweb/)
+&#151; **Advisor**: [Kang G. Shin](https://web.eecs.umich.edu/~kgshin/)
+<br />
+My research aims to ensure the integrity of integrated circuit
+hardware throughout the design and deployment lifecycles to facilitate a secure
+foundation for autonomous cyber-physical systems.
