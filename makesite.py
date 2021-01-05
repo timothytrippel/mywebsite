@@ -67,6 +67,8 @@ import re
 import shutil
 import sys
 
+import hjson
+
 
 def fread(filename):
     """Read file and close the file."""
@@ -218,59 +220,21 @@ def make_page(slug, layouts, **params):
 
 
 def main():
-    # Create a new _site directory from scratch.
-    if os.path.isdir('_site'):
-        shutil.rmtree('_site')
-    shutil.copytree('static', '_site')
+    # Create a new _site directory from scratch
+    if os.path.isdir("_site"):
+        shutil.rmtree("_site")
+    shutil.copytree("static", "_site")
 
-    # Default parameters.
+    # Default parameters
     params = {
-        'base_path': '/Users/ttrippel/repos/mywebsite/_site',
-        'subtitle': 'Personal Website',
-        'author': 'Timothy Trippel',
-        'site_url': 'http://localhost:8000',
-        'current_year': datetime.datetime.now().year,
-
-        # Student Info
-        'phd_student_status': 'Candidate',
-        'laboratory_name': 'RTCL Laboratory',
-        'university_department': 'Computer Science & Engineering',
-        'university': 'University of Michigan',
-
-        # Social Media
-        'twitter_username': 'TimothyTrippel',
-        'github_username': 'timothytrippel',
-        'linkedin_user_id': 'timothy-trippel-98a95657',
-        'google_scholar_user_id': 'PZOHIxAAAAAJ',
-
-        # CV
-        'cv_file_name': 'timothy_trippel_cv.pdf',
-
-        # TODO(timothytrippel): move to header comments of hompage.html layout
-        # Hompage (index.html)
-        'author_photo': 'timothytrippel.jpg',
-        # Contact Info.
-        'address_line_1': '4944 Bob & Betty Beyster Building',
-        'address_line_2': '2260 Hayward St.',
-        'address_line_3': 'Ann Arbor, MI 48109',
-        'email_username': 'trippel',
-        'email_hostname': 'umich.edu',
-        # Education Info.
-        'expected_graduation_month': 'May',
-        'expected_graduation_year': 2021,
-
-        # Experience (experience.html)
-        'curr_job_start_month': 'Sept.',
-        'curr_job_start_year': 2015,
-        'curr_job_title': 'Graduate Research Assistant',
-        'curr_employer': 'University of Michigan',
-        'curr_job_city': 'Ann Arbor',
-        'curr_job_state': 'MI',
+        "base_path": "/Users/ttrippel/repos/mywebsite/_site",
+        "site_url": "http://localhost:8000",
+        "current_year": datetime.datetime.now().year,
     }
 
     # If params.json exists, load it
-    if os.path.isfile('params.json'):
-        params.update(json.loads(fread('params.json')))
+    if os.path.isfile('params.hjson'):
+        params.update(hjson.loads(fread('params.hjson')))
 
     # Load layouts
     layouts = {}

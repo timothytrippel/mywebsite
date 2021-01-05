@@ -1,0 +1,31 @@
+{
+  'subtitle': 'Personal Website'
+  'author': 'Timothy Trippel'
+
+  # Student Info
+  'phd_student_status': 'Candidate'
+  'laboratory_name': 'RTCL Laboratory'
+  'university_department': 'Computer Science & Engineering'
+  'university': 'University of Michigan'
+
+  # Social Media
+  'twitter_username': 'TimothyTrippel'
+  'github_username': 'timothytrippel'
+  'linkedin_user_id': 'timothy-trippel-98a95657'
+  'google_scholar_user_id': 'PZOHIxAAAAAJ'
+
+  # CV
+  'cv_file_name': 'timothy_trippel_cv.pdf'
+
+  # Hompage (index.html)
+  'author_photo': 'timothytrippel.jpg'
+  # Contact Info.
+  'address_line_1': '4944 Bob & Betty Beyster Building'
+  'address_line_2': '2260 Hayward St.'
+  'address_line_3': 'Ann Arbor, MI 48109'
+  'email_username': 'trippel'
+  'email_hostname': 'umich.edu'
+  # Education Info.
+  'expected_graduation_month': 'May'
+  'expected_graduation_year': 2021
+}
