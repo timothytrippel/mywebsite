@@ -227,7 +227,8 @@ def make_page(slug, layouts, **params):
             # layout with the same name as the content file slug
             else:
                 content = read_content(src_path)
-                page_params[content["slug"]] = content["content"]
+                rendered_content = render(content["content"], **page_params)
+                page_params[content["slug"]] = rendered_content
 
     # Render homepage and write to file
     log('Rendering {} page => {}.html ...', slug, slug)

@@ -18,69 +18,14 @@
                     class="img-responsive"
                   />
                 </figure>
-
-                <!--Contact Info.-->
-                <h4>Office</h4>
-                <p>
-                  <br />
-                  {{ address_line_1 }}
-                  <br />
-                  {{ address_line_2 }}
-                  <br />
-                  {{ address_line_3 }}
-                </p>
-                <h4>Email</h4>
-                <p>
-                  <strong>
-                    &nbsp;&nbsp; <i class="fa fa-envelope"></i>&nbsp;</strong
-                  >
-                  <span>
-                    <script language="JavaScript">
-                      var username = {{ email_username }};
-                      var hostname = {{ email_hostname }};
-                      var linktext = username + "@" + hostname;
-                      document.write(
-                        "<a href='" +
-                          "mail" +
-                          "to:" +
-                          username +
-                          "@" +
-                          hostname +
-                          "'>" +
-                          linktext +
-                          "</a>"
-                      );
-                    </script>
-                  </span>
-                </p>
               </div>
             </div>
-
-            <!--empty column of whitespace-->
-            <div class="clearfix visible-sm visible-xs"></div>
 
             <!--bio, education, and research interests-->
             <div class="col-sm-12 col-md-7">
               <h3 class="title">{{ author }}</h3>
               <p>{{ bio }}</p>
-              <h4>Education</h4>
-              <ul>
-                <li>
-                  <strong>Ph.D. in {{ university_department }}</strong>, {{
-                  university }}, {{ expected_graduation_month }} {{
-                  expected_graduation_year }} (expected).
-                </li>
-                <li>
-                  <strong>M.S.E. in Computer Science & Engineering</strong>,
-                  University of Michigan, December 2016.
-                </li>
-                <li>
-                  <strong>B.S in Computer Engineering</strong>, Purdue
-                  University, May 2015.
-                </li>
-              </ul>
-              <h4>Research Interests</h4>
-              <p>{{ interests }}</p>
+              {{ contact_info }}
             </div>
           </div>
         </div>
@@ -89,6 +34,36 @@
     </div>
     <div class="section color-1">
       <div class="section-container">
+        <div class="row">
+          <div class="col-md-4 col-md-offset-1">
+            <div class="title text-center">
+              <h1>Education</h1>
+            </div>
+            {{ education }}
+          </div>
+          <div class="col-md-6">
+            <div class="title text-center">
+              <h1>Awards</h1>
+            </div>
+            <ul class="timeline">
+              {{ awards }}
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5 col-md-offset-1">
+            <div class="title text-center">
+              <h1>Research Interests</h1>
+            </div>
+            {{ interests }}
+          </div>
+          <div class="col-md-5">
+            <div class="title text-center">
+              <h1>Research Interests</h1>
+            </div>
+            {{ interests }}
+          </div>
+        </div>
         <div class="row">
           <div class="col-md-10 col-md-offset-1">
             <div class="title text-center">

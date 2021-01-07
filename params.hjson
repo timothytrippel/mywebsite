@@ -25,7 +25,4 @@
   'address_line_3': 'Ann Arbor, MI 48109'
   'email_username': 'trippel'
   'email_hostname': 'umich.edu'
-  # Education Info.
-  'expected_graduation_month': 'May'
-  'expected_graduation_year': 2021
 }
