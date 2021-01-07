@@ -59,9 +59,9 @@
 """Make static personal website with Python."""
 
 import calendar
+import collections
 import datetime
 import glob
-import json
 import os
 import re
 import shutil
@@ -170,7 +170,7 @@ def render(template, **params):
         template)
 
 
-def make_list(src, item_layout):
+def make_list(src, item_layout, key, params):
     """Generate HTML list string from several (HTML/Markdown) content files."""
     # Extract content from content files
     items = []
@@ -183,9 +183,13 @@ def make_list(src, item_layout):
 
     # Render items and build HTML string
     html_strs = []
+    num_item_types = collections.defaultdict(int)
     for item_params in items:
         log("Rendering list item => {}-{} ...", item_params["date"],
             item_params["slug"])
+        # Count sub-types within a list (for publications)
+        if "type" in item_params:
+            num_item_types["num_%s" % item_params["type"]] += 1
         # Combine content with a pre-defined HTML layout
         if item_layout is not None:
             item_html_str = render(item_layout, **item_params)
@@ -193,7 +197,9 @@ def make_list(src, item_layout):
         else:
             item_html_str = render(item_params["content"], **item_params)
         html_strs.append(item_html_str)
-    return "".join(html_strs)
+    params["num_list_items"] = len(items)
+    params.update(num_item_types)
+    params[key] = "".join(html_strs)
 
 
 def make_page(slug, layouts, **params):
@@ -208,15 +214,15 @@ def make_page(slug, layouts, **params):
     # Render page with content from the content directory
     # Content directory contains only content that will form a list
     if params.get("list_only") is True:
-        page_params["content"] = make_list(content_glob, None)
+        make_list(content_glob, None, "content", page_params)
     # Content directory contains singular and listable content
     else:
         for src_path in glob.glob(content_glob):
             # if we encounter a sub-directory, make a list from content files
             if os.path.isdir(src_path):
                 param = os.path.basename(src_path)
-                page_params[param] = make_list(os.path.join(src_path, "*"),
-                                               layouts[param])
+                make_list(os.path.join(src_path, "*"), layouts[param], param,
+                          page_params)
             # Otherwise, content file will fill the placeholder in the
             # layout with the same name as the content file slug
             else:
@@ -234,10 +240,6 @@ def load_layouts(src, **params):
     layouts = {}
     for layout_file in glob.glob(os.path.join(src, "*", "*.html")):
         slug = os.path.basename(layout_file)[:-5]
-        # layout_params = read_content(layout_file)
-        # layout_params.update(params)
-        # layout = render(layout_params["content"], **layout_params)
-        # layouts[slug] = layout
         layouts[slug] = fread(layout_file)
     return layouts
 

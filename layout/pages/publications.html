@@ -31,13 +31,19 @@
               </div>
               <div class="col-md-6">
                 <select id="cd-dropdown" name="cd-dropdown" class="cd-select">
-                  <option class="filter" value="all" selected>All</option>
-                  <!-- <option class="filter" value="dissertation">Dissertation</option> -->
-                  <option class="filter" value="conference">
-                    Conference Papers
+                  <option class="filter" value="all" selected>
+                    All ( {{ num_list_items }} )
                   </option>
-                  <option class="filter" value="patent">Patents</option>
-                  <option class="filter" value="preprint">Preprints</option>
+                  <!-- <option class="filter" value="dissertation">Dissertation ( {{ num_disseration }} )</option> -->
+                  <option class="filter" value="conference">
+                    Conference ( {{ num_conference }} )
+                  </option>
+                  <option class="filter" value="patent">
+                    Patents ( {{ num_patent }} )
+                  </option>
+                  <option class="filter" value="preprint">
+                    Preprints ( {{ num_preprint }} )
+                  </option>
                 </select>
               </div>
 
