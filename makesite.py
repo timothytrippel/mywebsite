@@ -170,7 +170,7 @@ def render(template, **params):
         template)
 
 
-def make_list(src, item_layout, **params):
+def make_list(src, item_layout):
     """Generate HTML list string from several (HTML/Markdown) content files."""
     # Extract content from content files
     items = []
@@ -186,12 +186,10 @@ def make_list(src, item_layout, **params):
     for item_params in items:
         log("Rendering list item => {}-{} ...", item_params["date"],
             item_params["slug"])
-        item_params.update(params)
-
         # Combine content with a pre-defined HTML layout
         if item_layout is not None:
             item_html_str = render(item_layout, **item_params)
-        # Content is the HTML string itself, no need to render anything
+        # Content is the HTML string itself
         else:
             item_html_str = render(item_params["content"], **item_params)
         html_strs.append(item_html_str)
@@ -207,10 +205,10 @@ def make_page(slug, layouts, **params):
     content_glob = os.path.join("content", slug, "*")
     dst_path = os.path.join(params["base_path"], slug + ".html")
 
-    # Render page with content
+    # Render page with content from the content directory
     # Content directory contains only content that will form a list
     if params.get("list_only") is True:
-        page_params["content"] = make_list(content_glob, None, **page_params)
+        page_params["content"] = make_list(content_glob, None)
     # Content directory contains singular and listable content
     else:
         for src_path in glob.glob(content_glob):
@@ -218,7 +216,7 @@ def make_page(slug, layouts, **params):
             if os.path.isdir(src_path):
                 param = os.path.basename(src_path)
                 page_params[param] = make_list(os.path.join(src_path, "*"),
-                                               layouts[param], **page_params)
+                                               layouts[param])
             # Otherwise, content file will fill the placeholder in the
             # layout with the same name as the content file slug
             else:
@@ -231,50 +229,66 @@ def make_page(slug, layouts, **params):
     fwrite(dst_path, output)
 
 
+def load_layouts(src, **params):
+    """Load layouts into a dictionary with slugs as a key."""
+    layouts = {}
+    for layout_file in glob.glob(os.path.join(src, "*", "*.html")):
+        slug = os.path.basename(layout_file)[:-5]
+        # layout_params = read_content(layout_file)
+        # layout_params.update(params)
+        # layout = render(layout_params["content"], **layout_params)
+        # layouts[slug] = layout
+        layouts[slug] = fread(layout_file)
+    return layouts
+
+
 def main():
-    # Create a new _site directory from scratch
+    # Create a new _site directory from scratch.
     if os.path.isdir("_site"):
         shutil.rmtree("_site")
     shutil.copytree("static", "_site")
 
-    # Default parameters
+    # Default parameters.
     params = {
         "base_path": "/Users/ttrippel/repos/mywebsite/_site",
         "site_url": "http://localhost:8000",
         "current_year": datetime.datetime.now().year,
     }
 
-    # If params.json exists, load it
+    # If params.hjson exists, load it.
     if os.path.isfile('params.hjson'):
         params.update(hjson.loads(fread('params.hjson')))
 
-    # Load layouts
-    layouts = {}
-    # Base layouts
-    layouts["page"] = fread('layout/page.html')
-    layouts["nav"] = fread('layout/nav.html')
-    # Page layouts
-    layouts["index"] = fread('layout/index.html')
-    layouts["publications"] = fread('layout/publications.html')
-    layouts["experience"] = fread('layout/experience.html')
-    # List Layouts
-    layouts["news"] = fread('layout/news_item.html')
-    layouts["job"] = fread('layout/job_item.html')
-    layouts["past_jobs"] = fread('layout/past_job_item.html')
-    layouts["current_jobs"] = fread('layout/current_job_item.html')
+    # Load layouts.
+    layouts = load_layouts("layout")
 
-    # Combine layouts to form final layouts
+    # Combine layouts to form final layouts.
+    # Base page layout.
     layouts["page"] = render(layouts["page"], nav=layouts["nav"])
-    layouts["index"] = render(layouts["page"], content=layouts["index"])
-    layouts["publications"] = render(layouts["page"],
-                                     content=layouts["publications"])
-    layouts["experience"] = render(layouts["page"],
-                                   content=layouts["experience"])
-    layouts["past_jobs"] = render(layouts["past_jobs"], content=layouts["job"])
+    # List item layouts.
+    layouts["past_jobs"] = render(layouts["past_jobs"],
+                                  content=layouts["jobs"])
     layouts["current_jobs"] = render(layouts["current_jobs"],
-                                     content=layouts["job"])
+                                     content=layouts["jobs"])
+    # Layouts of each page.
+    layouts["index"] = render(layouts["page"],
+                              content=layouts["index"],
+                              menu_item_index_class="currentmenu",
+                              menu_item_publications_class="",
+                              menu_item_experience_class="")
+    layouts["publications"] = render(
+        layouts["page"],
+        content=layouts["publications"],
+        menu_item_index_class="",
+        menu_item_publications_class="currentmenu",
+        menu_item_experience_class="")
+    layouts["experience"] = render(layouts["page"],
+                                   content=layouts["experience"],
+                                   menu_item_index_class="",
+                                   menu_item_publications_class="",
+                                   menu_item_experience_class="currentmenu")
 
-    # Create site pages
+    # Create site pages.
     make_page("index", layouts, **params)
     make_page("experience", layouts, **params)
     make_page("publications", layouts, list_only=True, **params)

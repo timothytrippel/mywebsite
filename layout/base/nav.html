@@ -26,28 +26,21 @@
         <!-- Main navigation-->
         <div id="main-nav" style="padding-bottom: 33px">
           <ul id="navigation">
-            <li class="currentmenu">
+            <li class="{{ menu_item_index_class }}">
               <a href="{{ base_path }}/index.html">
                 <i class="fa fa-user"></i>
                 <div class="text">About Me</div>
               </a>
             </li>
 
-            <li>
-              <a href="{{ base_path }}/research.html">
-                <i class="fa fa-book"></i>
-                <div class="text">Research</div>
-              </a>
-            </li>
-
-            <li>
+            <li class="{{ menu_item_publications_class }}">
               <a href="{{ base_path }}/publications.html">
                 <i class="fa fa-edit"></i>
                 <div class="text">Publications</div>
               </a>
             </li>
 
-            <li>
+            <li class="{{ menu_item_experience_class }}">
               <a href="{{ base_path }}/experience.html">
                 <i class="fa fa-clock-o"></i>
                 <div class="text">Experience</div>
