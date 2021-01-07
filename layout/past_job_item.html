@@ -1,13 +1,7 @@
 <li>
   <div class="dates">
-    <span>{{ end_month }} {{ end_year }}</span>
+    <span>{{ date_month_abbr }} {{ date_year }}</span>
     <span>{{ start_month }} {{ start_year }}</span>
   </div>
-  <div class="content">
-    <h4>
-      {{ position }} &#151; <strong>{{ institution }}</strong>
-      &#151; {{ location_city }}, {{ location_state }}
-    </h4>
-    {{ content }}
-  </div>
+  {{ content }}
 </li>

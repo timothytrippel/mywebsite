@@ -1,7 +1,5 @@
 <!--start_month: May-->
 <!--start_year: 2013-->
-<!--end_month: Aug.-->
-<!--end_year: 2013-->
 <!--position: Software Engineering Intern-->
 <!--institution: GE Healthcare-->
 <!--location_city: Barrington-->

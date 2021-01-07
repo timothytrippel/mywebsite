@@ -1,7 +1,5 @@
 <!--start_month: May-->
 <!--start_year: 2015-->
-<!--end_month: Aug.-->
-<!--end_year: 2015-->
 <!--position: Software Engineering Intern-->
 <!--institution: Microsoft-->
 <!--location_city: Bellevue-->

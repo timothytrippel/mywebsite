@@ -1,7 +1,5 @@
 <!--start_month: May-->
 <!--start_year: 2020-->
-<!--end_month: Aug.-->
-<!--end_year: 2020-->
 <!--position: Research Intern-->
 <!--institution: Google-->
 <!--location_city: Cambridge-->

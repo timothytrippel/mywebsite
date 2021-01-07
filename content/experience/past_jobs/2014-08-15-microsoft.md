@@ -1,7 +1,5 @@
 <!--start_month: May-->
 <!--start_year: 2014-->
-<!--end_month: Aug.-->
-<!--end_year: 2014-->
 <!--position: Software Engineering Intern-->
 <!--institution: Microsoft-->
 <!--location_city: Redmond-->

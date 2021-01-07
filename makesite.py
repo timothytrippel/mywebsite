@@ -128,7 +128,8 @@ def read_content(filename):
     content = {
         'date': match.group(1) or '1970-01-01',
         'date_year': int(match.group(2) or '1970'),
-        'date_month': calendar.month_abbr[int(match.group(3) or '01')],
+        'date_month': int(match.group(3) or '01'),
+        'date_month_abbr': calendar.month_abbr[int(match.group(3) or '01')],
         'date_day': int(match.group(4) or '01'),
         'slug': match.group(5),
     }
@@ -247,6 +248,7 @@ def main():
     layouts["experience"] = fread('layout/experience.html')
     # List Layouts
     layouts["news"] = fread('layout/news_item.html')
+    layouts["job"] = fread('layout/job_item.html')
     layouts["past_jobs"] = fread('layout/past_job_item.html')
     layouts["current_jobs"] = fread('layout/current_job_item.html')
 
@@ -257,6 +259,9 @@ def main():
                                      content=layouts["publications"])
     layouts["experience"] = render(layouts["page"],
                                    content=layouts["experience"])
+    layouts["past_jobs"] = render(layouts["past_jobs"], content=layouts["job"])
+    layouts["current_jobs"] = render(layouts["current_jobs"],
+                                     content=layouts["job"])
 
     # Create site pages
     make_page("index", layouts, **params)
