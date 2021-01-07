@@ -134,6 +134,12 @@ def read_content(filename):
         'slug': match.group(5),
     }
 
+    # Update format of month abbreviation.
+    if len(calendar.month_name[content["date_month"]]) > 3:
+        if content["date_month_abbr"] == "Sep":
+            content["date_month_abbr"] += "t"
+        content["date_month_abbr"] += "."
+
     # Read headers.
     end = 0
     for key, val, end in read_headers(text):
@@ -180,13 +186,14 @@ def make_list(src, item_layout, **params):
     for item_params in items:
         log("Rendering list item => {}-{} ...", item_params["date"],
             item_params["slug"])
+        item_params.update(params)
+
+        # Combine content with a pre-defined HTML layout
         if item_layout is not None:
             item_html_str = render(item_layout, **item_params)
-        elif params.get("render") is True:
-            item_params.update(params)
-            item_html_str = render(item_params["content"], **item_params)
+        # Content is the HTML string itself, no need to render anything
         else:
-            item_html_str = item_params["content"]
+            item_html_str = render(item_params["content"], **item_params)
         html_strs.append(item_html_str)
     return "".join(html_strs)
 
@@ -201,8 +208,10 @@ def make_page(slug, layouts, **params):
     dst_path = os.path.join(params["base_path"], slug + ".html")
 
     # Render page with content
+    # Content directory contains only content that will form a list
     if params.get("list_only") is True:
         page_params["content"] = make_list(content_glob, None, **page_params)
+    # Content directory contains singular and listable content
     else:
         for src_path in glob.glob(content_glob):
             # if we encounter a sub-directory, make a list from content files
@@ -210,6 +219,8 @@ def make_page(slug, layouts, **params):
                 param = os.path.basename(src_path)
                 page_params[param] = make_list(os.path.join(src_path, "*"),
                                                layouts[param], **page_params)
+            # Otherwise, content file will fill the placeholder in the
+            # layout with the same name as the content file slug
             else:
                 content = read_content(src_path)
                 page_params[content["slug"]] = content["content"]
@@ -266,7 +277,7 @@ def main():
     # Create site pages
     make_page("index", layouts, **params)
     make_page("experience", layouts, **params)
-    make_page("publications", layouts, list_only=True, render=True, **params)
+    make_page("publications", layouts, list_only=True, **params)
 
 
 # Test parameter to be set temporarily by unit tests.
