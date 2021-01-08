@@ -234,10 +234,6 @@ $(document).ready(function () {
   /*++++++++++++++++++++++++++++++++++++
 		click event on ul.timeline titles
 	++++++++++++++++++++++++++++++++++++++*/
-  //$("ul.timeline").children().eq(0)
-  //.find(".text").slideDown()
-  //.addClass("open");
-
   $("ul.timeline")
     .on("click", "li", function () {
       $this = $(this);
@@ -271,7 +267,7 @@ $(document).ready(function () {
   $("ul.ul-withdetails li")
     .find(".row")
     .on("click", function () {
-      // $this = $(this);
+      $this = $(this);
       $(this).closest("li").find(".details").stop(true, true).animate(
         {
           height: "toggle",
@@ -299,7 +295,6 @@ $(document).ready(function () {
   /*++++++++++++++++++++++++++++++++++++
 		Publications page categorization
 	++++++++++++++++++++++++++++++++++++++*/
-
   $("div#pub-grid")
     .mixitup({
       layoutMode: "list",
