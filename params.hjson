@@ -20,9 +20,10 @@
   # Hompage (index.html)
   'author_photo': 'timothytrippel.jpg'
   # Contact Info.
-  'address_line_1': '4944 Bob & Betty Beyster Building'
-  'address_line_2': '2260 Hayward St.'
-  'address_line_3': 'Ann Arbor, MI 48109'
+  'address_line_1': 'Rm. 4944'
+  'address_line_2': 'Bob & Betty Beyster Building'
+  'address_line_3': '2260 Hayward St.'
+  'address_line_4': 'Ann Arbor, MI 48109'
   'email_username': 'trippel'
   'email_hostname': 'umich.edu'
 }

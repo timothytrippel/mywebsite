@@ -9,23 +9,64 @@
 
             <!--photo/contact info-->
             <div class="col-sm-8 col-md-4">
-              <div class="biothumb">
-                <!--photo-->
-                <figure>
-                  <img
-                    alt="{{ author }} - {{ subtitle }}"
-                    src="{{ base_path }}/images/{{ author_photo }}"
-                    class="img-responsive"
-                  />
-                </figure>
-              </div>
+              <img
+                alt="{{ author }} - {{ subtitle }}"
+                src="{{ base_path }}/images/{{ author_photo }}"
+                class="img-responsive"
+              />
             </div>
 
             <!--bio, education, and research interests-->
-            <div class="col-sm-12 col-md-7">
+            <div class="col-sm-12 col-md-8">
               <h3 class="title">{{ author }}</h3>
               <p>{{ bio }}</p>
-              {{ contact_info }}
+            </div>
+          </div>
+
+          <!--contact info-->
+          <div class="row">
+            <!--office address-->
+            <div
+              class="col-xs-6 col-sm-4 col-sm-offset-2 col-md-4 col-md-offset-4 col-lg-2 col-lg-offset-0"
+            >
+              <h4>Office</h4>
+              <p>
+                {{ address_line_1 }}
+                <br />
+                {{ address_line_2 }}
+                <br />
+                {{ address_line_3 }}
+                <br />
+                {{ address_line_4 }}
+              </p>
+            </div>
+
+            <!--email-->
+            <div class="col-xs-6 col-sm-4 col-md-4 col-lg-2">
+              <h4>Email</h4>
+              <p>
+                <strong>
+                  &nbsp;&nbsp;<i class="fa fa-envelope"></i>&nbsp;</strong
+                >
+                <span>
+                  <script language="JavaScript">
+                    var username = "{{ email_username }}";
+                    var hostname = "{{ email_hostname }}";
+                    var linktext = username + "@" + hostname;
+                    document.write(
+                      "<a href='" +
+                        "mail" +
+                        "to:" +
+                        username +
+                        "@" +
+                        hostname +
+                        "'>" +
+                        linktext +
+                        "</a>"
+                    );
+                  </script>
+                </span>
+              </p>
             </div>
           </div>
         </div>
@@ -34,6 +75,7 @@
     </div>
     <div class="section color-1">
       <div class="section-container">
+        <!--Education/Awards-->
         <div class="row">
           <div class="col-md-4 col-md-offset-1">
             <div class="title text-center">
@@ -50,6 +92,7 @@
             </ul>
           </div>
         </div>
+        <!--Research Interests-->
         <div class="row">
           <div class="col-md-10 col-md-offset-1">
             <div class="title text-center">
@@ -59,15 +102,18 @@
         </div>
         <div class="row">
           <div class="col-md-6 col-md-offset-1">{{ interests }}</div>
-          <div class="col-md-4">
-            <ul class="ul-boxed list-unstyled">
-              <li>Hardware Security</li>
-              <li>Cyber-Physical Systems</li>
-              <li>Signal Injection Attacks/Defenses</li>
-              <li>Embedded Systems</li>
-            </ul>
+          <div class="col-md-4">{{ interests_list }}</div>
+        </div>
+        <!--Press-->
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+            <div class="title text-center">
+              <h1>Press</h1>
+            </div>
+            {{ press }}
           </div>
         </div>
+        <!--News-->
         <div class="row">
           <div class="col-md-10 col-md-offset-1">
             <div class="title text-center">
