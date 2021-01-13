@@ -175,7 +175,10 @@ def make_list(src, item_layout, key, params):
     # Extract content from content files
     items = []
     for content_file in glob.glob(src):
-        items.append(read_content(content_file))
+        item_params = read_content(content_file)
+        # render any placeholders in the content itself
+        item_params["content"] = render(item_params["content"], **params)
+        items.append(item_params)
 
     # Sort items by date
     items.sort(key=lambda x: (x["date_year"], x["date_month"], x["date_day"]),

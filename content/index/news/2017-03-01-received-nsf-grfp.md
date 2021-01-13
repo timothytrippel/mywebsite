@@ -1,1 +1,1 @@
-#### I received 2017 NSF Graduate Research Fellowship.
+#### I received the NSF Graduate Research Fellowship.

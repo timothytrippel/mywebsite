@@ -1,4 +1,1 @@
-#### I presented our **Walnut** work on acoustic injection attacks on MEMS accelerometers at the 2017 IEEE European Symposium on Security Privacy (EuroS&P) in Paris, France.
-
-You can find the link to the paper
-[here](https://spqr.eecs.umich.edu/papers/trippel-IEEE-oaklawn-walnut-2017.pdf).
+#### I presented our **WALNUT** <a href="{{ base_path }}/pubs/walnut/walnut-euros&p-17.pdf">paper</a> on acoustic injection attacks on MEMS accelerometers at (**EuroS&P'17**) in Paris, France.
