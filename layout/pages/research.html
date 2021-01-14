@@ -17,64 +17,89 @@
         <div class="section-container">
           <!--Research Projects Card Grid-->
           <div class="row project-cards">
+            <!--1st Row-->
+            <!--Hardware Fuzzing-->
+            <div class="col-sm-6 col-md-4">
+              <div class="card" data-mh="project-card">
+                <div data-mh="project-img">
+                  <img
+                    class="card-img-top img-responsive center-block"
+                    alt="Hardware Fuzzing"
+                    src="{{ base_path }}/images/hw-fuzzing-diagram.png"
+                  />
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title text-center" data-mh="project-desc">
+                    Fuzzing Hardware Like Software
+                  </h5>
+                  {{ hw-fuzzing-links }}
+                </div>
+              </div>
+            </div>
+
+            <!--Bomberman-->
+            <div class="col-sm-6 col-md-4">
+              <div class="card" data-mh="project-card">
+                <div data-mh="project-img">
+                  <img
+                    class="card-img-top img-responsive center-block"
+                    alt="Bomberman"
+                    src="{{ base_path }}/images/bomberman-logo.png"
+                  />
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title text-center" data-mh="project-desc">
+                    Bomberman: Vetting Untrusted RTL Hardware for Ticking
+                    Timebomb Trojans
+                  </h5>
+                  {{ bomberman-links }}
+                </div>
+              </div>
+            </div>
+
+            <!--IC Portholes-->
+            <div class="col-sm-6 col-md-4">
+              <div class="card" data-mh="project-card">
+                <div data-mh="project-img">
+                  <img
+                    class="card-img-top img-responsive center-block"
+                    alt="IC Portholes"
+                    src="{{ base_path }}/images/ic-portholes-logo.png"
+                  />
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title text-center" data-mh="project-desc">
+                    Integrated Circuit Portholes for Post-Fabrication Imaging of
+                    Untrusted ICs
+                  </h5>
+                  {{ ic-portholes-links }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+
+          <!--2nd Row-->
+          <div class="row project-cards">
             <!--Walnut-->
             <div class="col-sm-6 col-md-4">
               <div class="card" data-mh="project-card">
                 <div data-mh="project-img">
                   <img
-                    class="card-img-top img-responsive"
+                    class="card-img-top img-responsive center-block"
                     alt="WALNUT"
                     src="{{ base_path }}/images/accel-spkr.jpg"
                   />
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title" data-mh="project-desc">
+                  <h5 class="card-title text-center" data-mh="project-desc">
                     Spoofing MEMS Accelerometers with Sound
                   </h5>
+                  {{ walnut-links }}
                   <a
-                    href="https://ieeexplore.ieee.org/document/7961948"
+                    href="https://patents.google.com/patent/WO2017201409A1"
                     class="tooltips"
-                    title="Paper"
-                    target="_blank"
-                  >
-                    <i class="fa fa-file-pdf"></i>
-                  </a>
-                  <a
-                    href="{{ base_path }}/pubs/walnut/walnut.pptx"
-                    class="tooltips"
-                    title="Slides"
-                    target="_blank"
-                  >
-                    <i class="fa fa-file-powerpoint"></i>
-                  </a>
-                  <a
-                    href="https://www.youtube.com/watch?v=Dfc3jZkcnLU"
-                    class="tooltips"
-                    title="Summary Video"
-                    target="_blank"
-                  >
-                    <i class="fa fa-file-video-o"></i>
-                  </a>
-                  <a
-                    href="https://www.youtube.com/watch?v=C8aZ5nBmKH0"
-                    class="tooltips"
-                    title="Phone Demo Video"
-                    target="_blank"
-                  >
-                    <i class="fa fa-file-video-o"></i>
-                  </a>
-                  <a
-                    href="https://www.youtube.com/watch?v=aedOf3cZnEI"
-                    class="tooltips"
-                    title="Fitbit Demo Video"
-                    target="_blank"
-                  >
-                    <i class="fa fa-file-video-o"></i>
-                  </a>
-                  <a
-                    href="https://spqr.eecs.umich.edu/walnut/"
-                    class="tooltips"
-                    title="Project Website"
+                    title="External link"
                     target="_blank"
                   >
                     <i class="fa fa-external-link"></i>
@@ -88,82 +113,44 @@
               <div class="card" data-mh="project-card">
                 <div data-mh="project-img">
                   <img
-                    class="card-img-top img-responsive"
+                    class="card-img-top img-responsive center-block"
                     alt="ICAS"
                     src="{{ base_path }}/images/icas-logo.png"
                   />
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title" data-mh="project-desc">
+                  <h5 class="card-title text-center" data-mh="project-desc">
                     Integrated Circuit Attack Surface (ICAS): Quantifying IC
                     Layout Security
                   </h5>
-                  <a
-                    href="https://ieeexplore.ieee.org/abstract/document/9152692"
-                    class="tooltips"
-                    title="Paper"
-                    target="_blank"
-                  >
-                    <i class="fa fa-file-pdf"></i>
-                  </a>
-                  <a
-                    href="{{ base_path }}/pubs/icas/icas.pptx"
-                    class="tooltips"
-                    title="Slides"
-                    target="_blank"
-                  >
-                    <i class="fa fa-file-powerpoint"></i>
-                  </a>
-                  <a
-                    href="https://youtu.be/nDkFu9R3TAQ"
-                    class="tooltips"
-                    title="Summary Video"
-                    target="_blank"
-                  >
-                    <i class="fa fa-file-video-o"></i>
-                  </a>
-                  <a
-                    href="https://www.youtube.com/watch?v=cBME5aUhPeY"
-                    class="tooltips"
-                    title="Conference Presentation"
-                    target="_blank"
-                  >
-                    <i class="fa fa-file-video-o"></i>
-                  </a>
-                  <a
-                    href="https://github.com/mit-ll/nemo"
-                    class="tooltips"
-                    title="Nemo Repository"
-                    target="_blank"
-                  >
-                    <i class="fab fa-github"></i>
-                  </a>
-                  <a
-                    href="https://github.com/mit-ll/gds2-score"
-                    class="tooltips"
-                    title="GDS2-Score Repository"
-                    target="_blank"
-                  >
-                    <i class="fab fa-github"></i>
-                  </a>
+                  {{ icas-links }}
                 </div>
               </div>
             </div>
 
+            <!--T-TER (Defensive Routing)-->
             <div class="col-sm-6 col-md-4">
               <div class="card" data-mh="project-card">
                 <div data-mh="project-img">
                   <img
-                    class="card-img-top img-responsive"
+                    class="card-img-top img-responsive center-block"
                     alt="T-TER"
                     src="{{ base_path }}/images/t-ter-example.png"
                   />
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title" data-mh="project-desc">
+                  <h5 class="card-title text-center" data-mh="project-desc">
                     Targeted Tamper Evident Routing (T-TER) for Untrusted ICs
                   </h5>
-                  <a href="#" class="card-link">Paper</a>
+                  {{ t-ter-links }}
+                  <a
+                    href="https://patents.google.com/patent/US20200151368A1/"
+                    class="tooltips"
+                    title="External link"
+                    target="_blank"
+                  >
+                    <i class="fa fa-external-link"></i>
+                  </a>
                 </div>
               </div>
             </div>

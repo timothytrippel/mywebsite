@@ -239,10 +239,10 @@ def make_page(slug, layouts, **params):
     fwrite(dst_path, output)
 
 
-def load_layouts(src, **params):
+def load_layouts(src_glob):
     """Load layouts into a dictionary with slugs as a key."""
     layouts = {}
-    for layout_file in glob.glob(os.path.join(src, "*", "*.html")):
+    for layout_file in glob.glob(os.path.join(src_glob)):
         slug = os.path.basename(layout_file)[:-5]
         layouts[slug] = fread(layout_file)
     return layouts
@@ -266,7 +266,10 @@ def main():
         params.update(hjson.loads(fread('params.hjson')))
 
     # Load layouts.
-    layouts = load_layouts("layout")
+    layouts = load_layouts("layout/*/*.html")
+
+    # Load shared content.
+    params.update(load_layouts("content/shared/*.html"))
 
     # Combine layouts to form final layouts.
     # Base page layout.
