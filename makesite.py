@@ -277,6 +277,8 @@ def main():
     layouts["current_jobs"] = render(layouts["current_jobs"],
                                      content=layouts["jobs"])
     # Layouts of each page.
+    # TODO(timothytrippel): refactor setting the class of the current page to
+    # highlight the correct menu-item in the navbar. This is ugly ...
     layouts["index"] = render(layouts["page"],
                               content=layouts["index"],
                               menu_item_index_class="currentmenu",
@@ -287,17 +289,26 @@ def main():
         content=layouts["publications"],
         menu_item_index_class="",
         menu_item_publications_class="currentmenu",
+        menu_item_research_class="",
         menu_item_experience_class="")
     layouts["experience"] = render(layouts["page"],
                                    content=layouts["experience"],
                                    menu_item_index_class="",
                                    menu_item_publications_class="",
+                                   menu_item_research_class="",
                                    menu_item_experience_class="currentmenu")
+    layouts["research"] = render(layouts["page"],
+                                 content=layouts["research"],
+                                 menu_item_index_class="",
+                                 menu_item_publications_class="",
+                                 menu_item_research_class="currentmenu",
+                                 menu_item_experience_class="")
 
     # Create site pages.
     make_page("index", layouts, **params)
     make_page("experience", layouts, **params)
     make_page("publications", layouts, list_only=True, **params)
+    make_page("research", layouts, **params)
 
 
 # Test parameter to be set temporarily by unit tests.
