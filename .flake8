@@ -1,0 +1,9 @@
+[flake8]
+max-line-length = 80
+
+docstring-convention = google
+
+ignore =
+  # Use 2-space indent instead of 4
+  E111,
+  E114

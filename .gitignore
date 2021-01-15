@@ -6,3 +6,6 @@ _site/
 
 # MacOS
 .DS_Store
+
+# NPM packages
+node_modules/
