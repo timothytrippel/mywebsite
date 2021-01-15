@@ -1,11 +1,11 @@
 <!--type: patent-->
-<div class="item mix {{ type }}" data-year="{{ date_year }}">
+<div class="item mix {{ type }}" data-date="{{ date }}">
   <div class="pubmain">
     <div class="pubassets">
       <a
         href="https://patents.google.com/patent/WO2017201409A1"
         class="tooltips"
-        title="External link"
+        title="Patent"
         target="_blank"
       >
         <i class="fa fa-external-link"></i>
@@ -21,7 +21,8 @@
     </div>
     <div class="pubcite">
       <span class="label label-primary">{{ type }}</span> US Patent App.
-      16/303,495; Filing Date: {{ date_month }} {{ date_day }}, {{ date_year }}.
+      16/303,495; Filing Date: {{ date_month_abbr }} {{ date_day }}, {{
+      date_year }}.
     </div>
   </div>
 </div>

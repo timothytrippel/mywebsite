@@ -1,4 +1,4 @@
-My research interests focus on hardware security.
+My research focuses on hardware security.
 From sensors to microprocessors, tiny integrated circuits packed in
 black boxes, all interconnected on the same printed circuit board, form the
 foundation of all computing systems. Piled high above, are complex layers of
