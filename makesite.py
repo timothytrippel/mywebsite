@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # BSD 3-Clause License
 #
@@ -236,12 +236,14 @@ def make_page(slug, layouts, **params):
   fwrite(dst_path, output)
 
 
-def load_layouts(src_glob):
+def load_layouts(src_glob, **params):
   """Load layouts into a dictionary with slugs as a key."""
   layouts = {}
   for layout_file in glob.glob(os.path.join(src_glob)):
     slug = os.path.basename(layout_file)[:-5]
-    layouts[slug] = fread(layout_file)
+    # layouts[slug] = fread(layout_file)
+    # Render any placeholders embedded in layouts
+    layouts[slug] = render(fread(layout_file), **params)
   return layouts
 
 
@@ -253,8 +255,9 @@ def main():
 
   # Default parameters.
   params = {
-      "base_path": "/Users/ttrippel/repos/mywebsite/_site",
-      "site_url": "http://localhost:8000",
+      "base_path": os.path.join(os.getcwd(), "_site"),
+      "site_url": "https://timothytrippel.com",
+      # "site_url": "http://localhost:8000",
       "current_year": datetime.datetime.now().year,
   }
 
@@ -263,10 +266,10 @@ def main():
     params.update(hjson.loads(fread('params.hjson')))
 
   # Load layouts.
-  layouts = load_layouts("layout/*/*.html")
+  layouts = load_layouts("layout/*/*.html", **params)
 
   # Load shared content.
-  params.update(load_layouts("content/shared/*.html"))
+  params.update(load_layouts("content/shared/*.html", **params))
 
   # Combine layouts to form final layouts.
   # Base page layout.

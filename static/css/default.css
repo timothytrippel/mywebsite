@@ -235,3 +235,8 @@ body {
   border-radius: 2px;
   border: 2px solid #2b2b2b;
 }
+
+.project-cards {
+  display: flex;
+  flex-wrap: wrap;
+}

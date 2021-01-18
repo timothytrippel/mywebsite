@@ -1,1 +1,1 @@
-#### I (virtually) <a href="https://www.youtube.com/watch?v=cBME5aUhPeY">presented</a> our **ICAS** <a href="{{ base_path }}/pubs/icas/icas-oakland-20.pdf">paper</a> on integrated circuit layout security at S&P'20.
+#### I (virtually) <a href="https://www.youtube.com/watch?v=cBME5aUhPeY">presented</a> our **ICAS** <a href="{{ site_url }}/pubs/icas/icas-oakland-20.pdf">paper</a> on integrated circuit layout security at S&P'20.
