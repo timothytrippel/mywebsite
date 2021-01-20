@@ -1,9 +1,10 @@
-<div class="item">
+<div class="col-sm-6 col-md-4">
   <div class="card">
-    <div
-      class="thumb"
-      style="background-image: url({{ site_url }}/images/{{ image }});"
-    ></div>
-    <article>{{ content }}</article>
+    <img
+      class="img-responsive center-block"
+      alt="{{ title }}"
+      src="{{ site_url }}/images/{{ image }}"
+    />
+    <div class="card-body">{{ content }}</div>
   </div>
 </div>
