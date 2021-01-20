@@ -58,6 +58,7 @@
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """Make static personal website with Python."""
 
+import argparse
 import calendar
 import collections
 import datetime
@@ -250,7 +251,12 @@ def load_layouts(src_glob, **params):
   return layouts
 
 
-def main():
+def main(argv):
+  # Parse CMD line args
+  parser = argparse.ArgumentParser()
+  parser.add_argument("--site-url", default=None)
+  args = parser.parse_args(argv)
+
   # Create a new _site directory from scratch.
   if os.path.isdir("_site"):
     shutil.rmtree("_site")
@@ -259,14 +265,16 @@ def main():
   # Default parameters.
   params = {
       "base_path": os.path.join(os.getcwd(), "_site"),
-      "site_url": "https://timothytrippel.com",
-      # "site_url": "http://localhost:8000",
       "current_year": datetime.datetime.now().year,
   }
 
   # If params.hjson exists, load it.
   if os.path.isfile('params.hjson'):
     params.update(hjson.loads(fread('params.hjson')))
+
+  # Check if overloading site URL
+  if args.site_url is not None:
+    params["site_url"] = args.site_url
 
   # Load layouts.
   layouts = load_layouts("layout/*/*.html", **params)
@@ -316,4 +324,4 @@ def main():
 
 
 if __name__ == '__main__':
-  main()
+  main(sys.argv[1:])

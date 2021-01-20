@@ -29,12 +29,13 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-.PHONY: site serve clean
+.PHONY: site test clean
 
 site:
 	./makesite.py
 
-serve: site
+test:
+	./makesite.py --site-url="http://localhost:8000" && \
 	cd _site && python3 -m http.server;
 
 clean:

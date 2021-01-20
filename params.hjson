@@ -1,29 +1,30 @@
 {
-  'subtitle': 'Personal Website'
-  'author': 'Timothy Trippel'
+  site_url: "https://timothytrippel.com"
+  subtitle: Personal Website
+  author: Timothy Trippel
 
   # Student Info
-  'phd_student_status': 'Candidate'
-  'laboratory_name': 'RTCL Laboratory'
-  'university_department': 'Computer Science & Engineering'
-  'university': 'University of Michigan'
+  phd_student_status: Candidate
+  laboratory_name: RTCL Laboratory
+  university_department: Computer Science & Engineering
+  university: University of Michigan
 
   # Social Media
-  'twitter_username': 'TimothyTrippel'
-  'github_username': 'timothytrippel'
-  'linkedin_user_id': 'timothy-trippel-98a95657'
-  'google_scholar_user_id': 'PZOHIxAAAAAJ'
+  twitter_username: TimothyTrippel
+  github_username: timothytrippel
+  linkedin_user_id: timothy-trippel-98a95657
+  google_scholar_user_id: PZOHIxAAAAAJ
 
   # CV
-  'cv_file_name': 'timothy_trippel_cv.pdf'
+  cv_file_name: timothy_trippel_cv.pdf
 
   # Hompage (index.html)
-  'author_photo': 'timothytrippel.jpg'
+  author_photo: timothytrippel.jpg
   # Contact Info.
-  'address_line_1': 'Rm. 4944'
-  'address_line_2': 'Bob & Betty Beyster Building'
-  'address_line_3': '2260 Hayward St.'
-  'address_line_4': 'Ann Arbor, MI 48109'
-  'email_username': 'trippel'
-  'email_hostname': 'umich.edu'
+  address_line_1: Rm. 4944
+  address_line_2: Bob & Betty Beyster Building
+  address_line_3: 2260 Hayward St.
+  address_line_4: Ann Arbor, MI 48109
+  email_username: trippel
+  email_hostname: umich.edu
 }
