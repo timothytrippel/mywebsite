@@ -178,8 +178,11 @@ def make_list(src, item_layout, key, params):
     items.append(item_params)
 
   # Sort items by date
-  items.sort(key=lambda x: (x["date_year"], x["date_month"], x["date_day"]),
-             reverse=True)
+  if "sort_order" in items[0]:
+    items.sort(key=lambda x: int(x["sort_order"]))
+  else:
+    items.sort(key=lambda x: (x["date_year"], x["date_month"], x["date_day"]),
+               reverse=True)
 
   # Render items and build HTML string
   html_strs = []
