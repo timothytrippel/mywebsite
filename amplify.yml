@@ -1,0 +1,15 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - pip3 install -r requirements.txt
+    build:
+      commands:
+        - python3 makesite.py
+  artifacts:
+    baseDirectory: _site/
+    files:
+      - '**/*'
+  cache:
+    paths:
