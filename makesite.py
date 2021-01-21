@@ -170,34 +170,34 @@ def render(template, **params):
 
 def make_list(src, item_layout, key, params):
   """Generate HTML list string from several (HTML/Markdown) content files."""
-  # Extract content from content files
+  # Extract content from content files.
   items = []
   for content_file in glob.glob(src):
     item_params = read_content(content_file)
-    # render any placeholders in the content itself
+    # render any placeholders in the content itself.
     item_params["content"] = render(item_params["content"], **params)
     items.append(item_params)
 
-  # Sort items by date
+  # Sort items by date.
   if "sort_order" in items[0]:
     items.sort(key=lambda x: int(x["sort_order"]))
   else:
     items.sort(key=lambda x: (x["date_year"], x["date_month"], x["date_day"]),
                reverse=True)
 
-  # Render items and build HTML string
+  # Render items and build HTML string.
   html_strs = []
   num_item_types = collections.defaultdict(int)
   for item_params in items:
     log("Rendering list item => {}-{} ...", item_params["date"],
         item_params["slug"])
-    # Count sub-types within a list (for publications)
+    # Count sub-types within a list (for publications).
     if "type" in item_params:
       num_item_types["num_%s" % item_params["type"]] += 1
-    # Combine content with a pre-defined HTML layout
+    # Combine content with a pre-defined HTML layout.
     if item_layout is not None:
       item_html_str = render(item_layout, **item_params)
-    # Content is the HTML string itself
+    # Content is the HTML string itself.
     else:
       item_html_str = render(item_params["content"], **item_params)
     html_strs.append(item_html_str)
@@ -208,33 +208,33 @@ def make_list(src, item_layout, key, params):
 
 def make_page(slug, layouts, **params):
   """Generate website page from layout and content directory."""
-  # Create deepcopy of params
+  # Create deepcopy of params.
   page_params = dict(params)
 
-  # Create src and dst paths
+  # Create src and dst paths.
   content_glob = os.path.join("content", slug, "*")
   dst_path = os.path.join(params["base_path"], slug + ".html")
 
-  # Render page with content from the content directory
-  # Content directory contains only content that will form a list
+  # Render page with content from the content directory.
+  # Content directory contains only content that will form a list.
   if params.get("list_only") is True:
     make_list(content_glob, None, "content", page_params)
-  # Content directory contains singular and listable content
+  # Content directory contains singular and listable content.
   else:
     for src_path in glob.glob(content_glob):
-      # if we encounter a sub-directory, make a list from content files
+      # if we encounter a sub-directory, make a list from content files.
       if os.path.isdir(src_path):
         param = os.path.basename(src_path)
         make_list(os.path.join(src_path, "*"), layouts[param], param,
                   page_params)
       # Otherwise, content file will fill the placeholder in the
-      # layout with the same name as the content file slug
+      # layout with the same name as the content file slug.
       else:
         content = read_content(src_path)
         rendered_content = render(content["content"], **page_params)
         page_params[content["slug"]] = rendered_content
 
-  # Render homepage and write to file
+  # Render homepage and write to file.
   log('Rendering {} page => {}.html ...', slug, slug)
   output = render(layouts[slug], **page_params)
   fwrite(dst_path, output)
@@ -245,14 +245,12 @@ def load_layouts(src_glob, **params):
   layouts = {}
   for layout_file in glob.glob(os.path.join(src_glob)):
     slug = os.path.basename(layout_file)[:-5]
-    # layouts[slug] = fread(layout_file)
-    # Render any placeholders embedded in layouts
     layouts[slug] = render(fread(layout_file), **params)
   return layouts
 
 
 def main(argv):
-  # Parse CMD line args
+  # Parse CMD line args.
   parser = argparse.ArgumentParser()
   parser.add_argument("--site-url", default=None)
   args = parser.parse_args(argv)
@@ -261,6 +259,7 @@ def main(argv):
   if os.path.isdir("_site"):
     shutil.rmtree("_site")
   shutil.copytree("static", "_site")
+  shutil.copytree("third_party", "_site/third_party")
 
   # Default parameters.
   params = {

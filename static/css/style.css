@@ -265,9 +265,10 @@ ul#navigation li.currentmenu a {
   color: #fff;
 }
 
-/*ul#navigation li.external:hover .fa, ul#navigation li.currentmenu .fa{
-	color: #03cc85;
-}*/
+ul#navigation li.external:hover .fa,
+ul#navigation li.currentmenu .fa {
+  color: #03cc85;
+}
 
 ul#navigation li.currentmenu {
   background: #363636;
@@ -311,8 +312,6 @@ ul#navigation li .fa {
 }
 
 .social-icons li {
-  /* float: left; */
-  /* width: 33%; */
   padding: 5px;
   text-align: center;
   display: inline-block;
@@ -513,12 +512,7 @@ ul.ul-card li .dy span {
   margin: 0;
 }
 
-/*ul.ul-card li .dy .degree {
-	background-color: #03bb7a;
-}*/
-
 ul.ul-card li .dy .year {
-  /*background-color: #03cc85;*/
   -webkit-box-shadow: -3px 0px 7px -3px rgba(68, 68, 68, 0.5);
   box-shadow: -3px 0px 7px -3px rgba(68, 68, 68, 0.5);
   margin-left: -3px !important;
@@ -568,10 +562,6 @@ ul.ul-dates-gray div.dates span {
 ul.ul-dates-gray div.dates span {
   background-color: #bbbbbb !important;
 }
-
-/*ul.ul-dates div.dates span:last-child {
-	background-color: #03bb7a;
-}*/
 
 ul.ul-dates-gray div.dates span:last-child {
   background-color: #979797 !important;
@@ -763,7 +753,7 @@ ul.timeline li .data .text {
 }
 
 /*************************************************
- * lab partnerts
+ * lab partners
  **************************************************/
 #labp-heads-wrap {
   /*background-color: #03bb7a;*/
