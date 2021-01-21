@@ -154,8 +154,7 @@ def read_content(filename):
   # Update the dictionary with content and RFC 2822 date.
   content.update({
       'content': text,
-      # TODO(timothytrippel): uncomment this
-      # 'rfc_2822_date': rfc_2822_format(content['date'])
+      'rfc_2822_date': rfc_2822_format(content['date'])
   })
 
   return content
