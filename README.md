@@ -8,7 +8,7 @@ for the deployed final product.
 
 This repository contains a static site generator written in Python (based on the
 popular [makesite.py](https://github.com/sunainapai/makesite) project), and all
-the layout/content files for my peronal website (above). Feel free to test it
+the layout/content files for my personal website (above). Feel free to test it
 out and modify it to fit your needs.
 
 ### I. Directory Structure
@@ -30,11 +30,11 @@ related to different projects I've worked on).
 **There are a few things to note about content files and how they are
 organized:**
 
-1. **Mardown** and **HTML** are currently the only supported content file
+1. **Markdown** and **HTML** are currently the only supported content file
    formats.
 
 2. **Content files that are nested within sub-directories of the page-specific
-   content directories** (e.g., `experience/past_jobs/*`) are interpretted as
+   content directories** (e.g., `experience/past_jobs/*`) are interpreted as
    **listable** content by the `makesite.py` script. For example, each content
    file in `experience/past_jobs/` will fill a matching _list item_ layout
    template defined in `layout/list_items/` (i.e.,
@@ -63,7 +63,7 @@ HTML layouts of the various site pages and page elements.
 
 2. `layout/list_items/`: contains several list item layouts for various list
    (\<ul\>\</ul\>) elements embedded in each page. These layouts get injected
-   with content that is nested within sub-directories of the page-sepific
+   with content that is nested within sub-directories of the page-specific
    content directories (Section I.A.2).
 
 3. `layout/pages/`: contains a layout for each page in the final website. These
@@ -78,7 +78,7 @@ The `static/` directory contains static styling, scripts, images, documents
 #### D. third_party/
 
 The `third_party` directory contains third party styling and scripts used to
-construct this website. All third party files are accompanied with lincense
+construct this website. All third party files are accompanied with license
 headers that dictate their terms of use.
 
 ### II. Generating/Testing the Site Locally
@@ -93,13 +93,14 @@ localhost:8000):
    `pip install -r requirements.txt`
 5. `make test`
 
-### IV. Installing _Prettier_ Autoformatter for Development
+### IV. Installing _Prettier_ Code Formatter for Development
 
-I use [Prettier] as an autoformatter for all things web-related
+I use [Prettier] as a code formatter for all things web-related
 (HTML/Markdown/CSS/JavaScript). It keeps things tidy and is easy to install with
 the Node Package Manager (`npm`) that can be installed
 [here](https://www.npmjs.com/get-npm). Once `npm` is installed, and you fork
-this repository, you can install prettier simply with:
+this repository, you can install prettier simply (since the JSON files
+describing package dependencies are included in the repository) with:
 
 `npm install`
 
