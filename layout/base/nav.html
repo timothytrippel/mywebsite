@@ -15,10 +15,10 @@
           </div>
           <div class="title">
             <h2>{{ author }}</h2>
-            <h3>Ph.D. {{ phd_student_status }}</h3>
-            <h3>{{ laboratory_name }}</h3>
-            <h3>{{ university_department }}</h3>
-            <h3>{{ university }}</h3>
+            <h3>{{ job }}</h3>
+            <h3>{{ team }}</h3>
+            <h3>{{ company_org }}</h3>
+            <h3>{{ company }}</h3>
           </div>
         </div>
         <!-- /Profile/logo section-->
@@ -65,6 +65,27 @@
         <!-- /Main navigation-->
         <!-- Sidebar footer -->
         <div id="sidebar-footer">
+          <div>
+            <i class="fab fa-envelope"></i>
+            <span>
+              <script language="JavaScript">
+                var username = "{{ email_username }}";
+                var hostname = "{{ email_hostname }}";
+                var linktext = username + "@" + hostname;
+                document.write(
+                  "<a href='" +
+                    "mail" +
+                    "to:" +
+                    username +
+                    "@" +
+                    hostname +
+                    "'>" +
+                    linktext +
+                    "</a>"
+                );
+              </script>
+            </span>
+          </div>
           <div class="social-icons">
             <ul>
               <li>

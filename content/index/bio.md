@@ -1,5 +1,5 @@
-On June 1st, I will transition to my new role as a Software Engineer at Google
-on the [OpenTitan](https://opentitan.org/) team.
+I am a Software Engineer at Google on the Chrome OS team working on the
+[OpenTitan](https://opentitan.org/) project.
 
 Recently, I completed my Ph.D. in Computer Science & Engineering at the
 University of Michigan, where I was advised by Professor

@@ -4,10 +4,10 @@
   author: Timothy Trippel
 
   # Student Info
-  phd_student_status: Candidate
-  laboratory_name: RTCL Laboratory
-  university_department: Computer Science & Engineering
-  university: University of Michigan
+  job: Software Engineer
+  team: Chrome OS
+  company_org: Platforms & Ecosystems
+  company: Google, LLC
 
   # Social Media
   twitter_username: TimothyTrippel
@@ -21,10 +21,6 @@
   # Hompage (index.html)
   author_photo: timothytrippel.jpg
   # Contact Info.
-  address_line_1: Rm. 4944
-  address_line_2: Bob & Betty Beyster Building
-  address_line_3: 2260 Hayward St.
-  address_line_4: Ann Arbor, MI 48109
-  email_username: trippel
-  email_hostname: umich.edu
+  email_username: timothy
+  email_hostname: trippel.me
 }

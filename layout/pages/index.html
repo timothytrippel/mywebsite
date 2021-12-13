@@ -22,53 +22,6 @@
               <p>{{ bio }}</p>
             </div>
           </div>
-
-          <!--contact info-->
-          <div class="row">
-            <!--office address-->
-            <div
-              class="col-xs-6 col-sm-4 col-sm-offset-2 col-md-4 col-md-offset-4 col-lg-2 col-lg-offset-0"
-            >
-              <h4>Office</h4>
-              <p>
-                {{ address_line_1 }}
-                <br />
-                {{ address_line_2 }}
-                <br />
-                {{ address_line_3 }}
-                <br />
-                {{ address_line_4 }}
-              </p>
-            </div>
-
-            <!--email-->
-            <div class="col-xs-6 col-sm-4 col-md-4 col-lg-2">
-              <h4>Email</h4>
-              <p>
-                <strong>
-                  &nbsp;&nbsp;<i class="fa fa-envelope"></i>&nbsp;</strong
-                >
-                <span>
-                  <script language="JavaScript">
-                    var username = "{{ email_username }}";
-                    var hostname = "{{ email_hostname }}";
-                    var linktext = username + "@" + hostname;
-                    document.write(
-                      "<a href='" +
-                        "mail" +
-                        "to:" +
-                        username +
-                        "@" +
-                        hostname +
-                        "'>" +
-                        linktext +
-                        "</a>"
-                    );
-                  </script>
-                </span>
-              </p>
-            </div>
-          </div>
         </div>
         <div class="section-container"></div>
       </div>

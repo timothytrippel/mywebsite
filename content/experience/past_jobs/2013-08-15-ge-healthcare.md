@@ -1,14 +1,10 @@
-<!--start_month: May-->
-<!--start_year: 2013-->
-<!--position: Software Engineering Intern-->
-<!--institution: GE Healthcare-->
-<!--location_city: Barrington-->
-<!--location_state: IL-->
+<!--start_month: June-->
+<!--start_year: 2021-->
+<!--position: Software Engineer-->
+<!--institution: Google-->
+<!--location_city: Sunnyvale-->
+<!--location_state: CA-->
 
-**Supervisor**: Anand Desikan
-<br />
-**Description**:
-Designed and developed a software development life-cycle reporting tool (using
-a Python backend combined with a web UX) for use by agile scrum teams, to
-automate the production of Design History Files required to meet FDA healthcare
-software regulations.
+**Supervisor**: Arun Thomas <br /> **Description**: Worked on the OpenTitan
+project to design and develop the first-ever open-source silicon root-of-trust
+chip.
