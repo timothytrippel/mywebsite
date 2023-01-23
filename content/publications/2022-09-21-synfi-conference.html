@@ -1,0 +1,65 @@
+<!--type: conference-->
+<!--acceptance_rate: 38%-->
+<div class="item mix {{ type }}" data-date="{{ date }}">
+  <div class="pubmain">
+    <div class="pubassets">
+      {{ synfi-links }}
+      <a href="#" class="pubcollapse">
+        <i class="fa fa-expand"></i>
+      </a>
+    </div>
+    <h4 class="pubtitle">
+      SYNFI: Pre-Silicon Fault Analysis of an Open-Source Secure Element
+    </h4>
+    <div class="pubauthor">
+      Pascal Nasahl, Miguel Osorio, Pirmin Vogel, Michael Schaffner,
+      <strong>Timothy Trippel</strong>, Dominic Rizzo, and Stefan Mangard
+    </div>
+    <div class="pubcite">
+      <span class="label label-success">{{ type }}</span>
+      IACR Transactions on Cryptographic Hardware and Embedded Systems
+      <strong>(CHES)</strong>, Leuven, Belgium, September {{ date_year }}.
+      (Acceptance Rate: {{ acceptance_rate }})
+    </div>
+  </div>
+  <div class="pubdetails">
+    <h4>Abstract</h4>
+    <p>
+      Fault attacks are active, physical attacks that an adversary can leverage
+      to alter the control-flow of embedded devices to gain access to sensitive
+      information or bypass protection mechanisms. Due to the severity of these
+      attacks, manufacturers deploy hardware-based fault defenses into
+      security-critical systems, such as secure elements. The development of
+      these countermeasures is a challenging task due to the complex interplay
+      of circuit components and because contemporary design automation tools
+      tend to optimize inserted structures away, thereby defeating their
+      purpose. Hence, it is critical that such countermeasures are rigorously
+      verified post-synthesis. Since classical functional verification
+      techniques fall short of assessing the effectiveness of countermeasures
+      (due to the circuit being analyzed when no faults are present), developers
+      have to resort to methods capable of injecting faults in a simulation
+      testbench or into a physical chip sample. However, developing test
+      sequences to inject faults in simulation is an error-prone task and
+      performing fault attacks on a chip requires specialized equipment and is
+      incredibly time-consuming. Moreover, identifying the fault-vulnerable
+      circuit is hard in both approaches, and fixing potential design flaws
+      post-silicon is usually infeasible since that would require another
+      tape-out. To that end, this paper introduces SYNFI, a formal pre-silicon
+      fault verification framework that operates on synthesized netlists. SYNFI
+      can be used to analyze the general effect of faults on the input-output
+      relationship in a circuit and its fault countermeasures, and thus enables
+      hardware designers to assess and verify the effectiveness of embedded
+      countermeasures in a systematic and semi-automatic way. The framework
+      automatically extracts sensitive parts of the circuit, induces faults into
+      the extracted subcircuit, and analyzes the faults’ effects using formal
+      methods. To demonstrate that SYNFI is capable of handling unmodified,
+      industry-grade netlists synthesized with commercial and open tools, we
+      analyze OpenTitan, the first opensource secure element. In our analysis,
+      we identified critical security weaknesses in the unprotected AES block,
+      developed targeted countermeasures, reassessed their security, and
+      contributed these countermeasures back to the OpenTitan project. For other
+      fault-hardened IP, such as the life cycle controller, we used SYNFI to
+      confirm that existing countermeasures provide adequate protection.
+    </p>
+  </div>
+</div>
