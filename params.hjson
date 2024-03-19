@@ -20,7 +20,4 @@
 
   # Hompage (index.html)
   author_photo: timothytrippel.jpg
-  # Contact Info.
-  email_username: timothy
-  email_hostname: trippel.me
 }
